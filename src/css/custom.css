@@ -160,58 +160,85 @@
 
 /* Mobile hamburger menu fixes */
 @media (max-width: 996px) {
-  /* Ensure hamburger button is properly accessible on mobile */
-  .navbar__toggle {
-    color: var(--ifm-color-primary) !important;
-    z-index: 1000;
-    position: relative;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-    min-width: 44px;
-    min-height: 44px;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    margin: 0;
-    background: transparent;
-    border: none;
-  }
-  
-  /* Ensure the hamburger icon is visible and clickable */
-  .navbar__toggle svg {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
-    pointer-events: none;
-  }
-  
-  /* Fix navbar container on mobile */
-  .navbar__inner {
-    position: relative;
-    z-index: 999;
-  }
-  
-  /* Ensure menu sidebar doesn't interfere with button */
-  .navbar-sidebar {
-    z-index: 998;
-  }
-  
-  /* Prevent backdrop filter issues on mobile */
+  /* Fix navbar layout to prevent overlapping */
   .navbar {
     backdrop-filter: none;
     background: rgba(255, 255, 255, 0.98);
+    min-height: 60px;
+    padding: 0;
   }
   
   [data-theme='dark'] .navbar {
     background: rgba(24, 25, 26, 0.98);
   }
   
-  /* Fix potential overlay issues */
-  .navbar__brand {
-    z-index: 1001;
+  /* Ensure proper navbar container layout */
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+    padding: 0 1rem;
+    max-width: none;
     position: relative;
+  }
+  
+  /* Fix brand positioning to prevent overlap */
+  .navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
+    z-index: 1;
+    position: relative;
+  }
+  
+  /* Hamburger button - clean positioning */
+  .navbar__toggle {
+    /* Reset all conflicting styles */
+    position: relative !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    
+    /* Consistent sizing for iPhone Max */
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    
+    /* Clean styling */
+    padding: 8px;
+    margin: 0;
+    margin-left: auto;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    
+    /* Touch optimization */
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    
+    /* Ensure it's on top but not conflicting */
+    z-index: 10;
+    
+    /* Color and visibility */
+    color: var(--ifm-color-primary) !important;
+  }
+  
+  /* Hamburger icon styling */
+  .navbar__toggle svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    pointer-events: none;
+  }
+  
+  /* Menu sidebar positioning */
+  .navbar-sidebar {
+    z-index: 9999;
   }
 }
 
@@ -448,22 +475,16 @@ article a:focus {
     -webkit-tap-highlight-color: rgba(102, 126, 234, 0.1);
   }
   
-  /* Fix any potential pointer-events issues */
-  .navbar__title {
-    pointer-events: auto;
-    touch-action: manipulation;
-  }
-  
   /* Ensure brand logo is touchable */
   .navbar__brand {
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
   
-  /* Remove backdrop filter on mobile for better performance */
-  .navbar {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+  /* Brand title pointer events */
+  .navbar__title {
+    pointer-events: none;
+    touch-action: manipulation;
   }
 }
 
@@ -475,99 +496,24 @@ article a:focus {
       -webkit-appearance: none;
       -webkit-touch-callout: none;
       -webkit-user-select: none;
-      -khtml-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
       -webkit-tap-highlight-color: rgba(0,0,0,0);
-      tap-highlight-color: rgba(0,0,0,0);
       outline: none;
-      border: none;
-      background: none;
-      cursor: pointer;
-      position: relative;
-      z-index: 1050;
-    }
-    
-    /* Force hardware acceleration for smooth interactions */
-    .navbar__toggle,
-    .navbar-sidebar {
+      
+      /* Hardware acceleration for smooth interactions */
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
     }
     
-    /* Ensure proper button sizing on iOS */
-    .navbar__toggle {
-      width: 44px;
-      height: 44px;
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      margin: 0;
-    }
-    
-    /* iOS Safari navbar fixes */
+    /* iOS Safari navbar performance */
     .navbar {
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
       position: sticky;
       top: 0;
-      z-index: 1000;
     }
-  }
-}
-
-/* Additional global mobile fixes for all devices */
-@media (max-width: 996px) {
-  /* Ensure all potentially problematic elements don't interfere */
-  .navbar__inner {
-    position: relative;
-    z-index: 1001;
-  }
-  
-  /* Force proper stacking context */
-  .navbar__toggle {
-    position: relative !important;
-    z-index: 1050 !important;
-    isolation: isolate;
-  }
-  
-  /* Ensure navbar brand doesn't overlap toggle */
-  .navbar__brand {
-    margin-right: auto;
-    z-index: 1002;
-  }
-  
-  /* Prevent any pseudo-elements from interfering */
-  .navbar__toggle::before,
-  .navbar__toggle::after {
-    display: none !important;
-  }
-  
-  /* Force button to be visible and clickable */
-  .navbar__toggle[aria-expanded="false"],
-  .navbar__toggle[aria-expanded="true"] {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    display: flex !important;
-  }
-  
-  /* Reset any conflicting CSS that might prevent clicks */
-  .navbar * {
-    pointer-events: auto;
-  }
-  
-  /* Specific reset for gradient text that might block interactions */
-  .navbar__title {
-    pointer-events: none !important;
-  }
-  
-  .navbar__brand {
-    pointer-events: auto !important;
   }
 }
 
@@ -577,7 +523,6 @@ article a:focus {
   .navbar__toggle {
     /* Enhanced touch response for Android */
     -ms-touch-action: manipulation;
-    touch-action: manipulation;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -586,20 +531,6 @@ article a:focus {
     /* Better tap highlighting for Android */
     -webkit-tap-highlight-color: rgba(102, 126, 234, 0.1);
     -moz-tap-highlight-color: rgba(102, 126, 234, 0.1);
-    
-    /* Prevent zoom on double-tap (Android specific) */
-    touch-action: manipulation;
-    
-    /* Enhanced button contrast for Android */
-    color: var(--ifm-color-primary) !important;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    
-    /* Ensure proper button size for various Android densities */
-    min-width: 48px;
-    min-height: 48px;
-    width: 48px;
-    height: 48px;
   }
   
   /* Android WebView specific fixes */
@@ -613,30 +544,9 @@ article a:focus {
     -ms-user-select: none;
   }
   
-  /* Android Samsung Internet browser fixes */
-  .navbar {
-    /* Prevent Samsung Internet scroll issues */
-    -webkit-overflow-scrolling: touch;
-    position: sticky;
-    top: 0;
-    
-    /* Enhanced hardware acceleration for Samsung Internet */
-    will-change: transform;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-  }
-  
-  /* Android Firefox mobile fixes */
-  .navbar-sidebar {
-    /* Better sidebar performance on Firefox Android */
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    will-change: transform;
-  }
-  
   /* Better touch feedback for all Android browsers */
   .navbar__toggle:active {
-    background: rgba(102, 126, 234, 0.2) !important;
+    background: rgba(102, 126, 234, 0.15) !important;
     transform: scale(0.95);
     transition: all 0.1s ease;
   }
@@ -655,9 +565,7 @@ article a:focus {
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
   /* iPad-specific hamburger menu enhancements */
   .navbar__toggle {
-    /* iPad touch targets - larger than phone, smaller than desktop */
-    min-width: 50px !important;
-    min-height: 50px !important;
+    /* iPad touch targets - larger than phone, optimized for tablet */
     width: 50px !important;
     height: 50px !important;
     
@@ -688,21 +596,6 @@ article a:focus {
   [data-theme='dark'] .navbar {
     background: rgba(24, 25, 26, 0.94);
   }
-  
-  /* iPad menu sidebar optimizations */
-  .navbar-sidebar {
-    /* Better sidebar width for iPad */
-    max-width: 320px;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* iPad touch improvements */
-  .navbar__link {
-    /* Larger touch targets for iPad */
-    padding: 14px 18px;
-    min-height: 50px;
-    font-size: 1rem;
-  }
 }
 
 /* iPad landscape orientation optimizations */
@@ -710,16 +603,8 @@ article a:focus {
   /* In landscape, iPad might have more horizontal space */
   .navbar__toggle {
     /* Slightly smaller in landscape if more space is available */
-    min-width: 46px !important;
-    min-height: 46px !important;
     width: 46px !important;
     height: 46px !important;
-  }
-  
-  /* Optimize navbar for landscape iPad */
-  .navbar__inner {
-    max-width: none;
-    padding: 0 1.5rem;
   }
 }
 
@@ -727,8 +612,6 @@ article a:focus {
 @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) {
   /* iPad Pro touch enhancements */
   .navbar__toggle {
-    min-width: 52px !important;
-    min-height: 52px !important;
     width: 52px !important;
     height: 52px !important;
     
