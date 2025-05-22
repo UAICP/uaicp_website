@@ -33,37 +33,54 @@ jobs:
     
     - name: Sync content from specification repo
       run: |
+        echo "🔄 Syncing content from specification repo..."
+        
         # Create sync directories
         mkdir -p temp-sync
         
-        # Download specification content (using GitHub API)
-        curl -H "Accept: application/vnd.github.v3.raw" \
+        # Try to download specification content (continue build even if this fails)
+        echo "📥 Downloading specification content..."
+        curl -f -H "Accept: application/vnd.github.v3.raw" \
              -o temp-sync/specification.md \
-             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/specification/specification.md
+             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/specification/specification.md || echo "⚠️ Could not download specification.md"
         
-        curl -H "Accept: application/vnd.github.v3.raw" \
+        curl -f -H "Accept: application/vnd.github.v3.raw" \
              -o temp-sync/mcp-integration.md \
-             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/integration-guides/MCP-INTEGRATION.md
+             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/integration-guides/MCP-INTEGRATION.md || echo "⚠️ Could not download mcp-integration.md"
         
-        curl -H "Accept: application/vnd.github.v3.raw" \
+        curl -f -H "Accept: application/vnd.github.v3.raw" \
              -o temp-sync/use-cases.md \
-             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/examples/use-cases.md
+             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/examples/use-cases.md || echo "⚠️ Could not download use-cases.md"
         
-        # Copy specification content (preserving existing if sync fails)
+        # Process downloaded content if available
         if [ -f temp-sync/specification.md ]; then
+          echo "✅ Processing specification.md..."
           # Add Docusaurus front matter to specification
           echo "---" > docs/specification/full-specification.md
           echo "sidebar_position: 4" >> docs/specification/full-specification.md
           echo "---" >> docs/specification/full-specification.md
           echo "" >> docs/specification/full-specification.md
           cat temp-sync/specification.md >> docs/specification/full-specification.md
+        else
+          echo "ℹ️ Using existing specification content"
         fi
         
         # Cleanup
         rm -rf temp-sync
+        echo "✅ Content sync completed"
     
     - name: Build website
-      run: npm run build
+      run: |
+        echo "🏗️ Building Docusaurus website..."
+        npm run build
+        
+        # Ensure CNAME file is in the build output for custom domain
+        echo "uaicp.org" > build/CNAME
+        echo "✅ Build completed with custom domain configured"
+        
+        # Debug: Show build directory contents
+        echo "📁 Build directory contents:"
+        ls -la build/
     
     - name: Setup Pages
       uses: actions/configure-pages@v4
