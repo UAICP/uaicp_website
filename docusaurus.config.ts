@@ -66,20 +66,17 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'specSidebar',
+          to: '/docs/specification/introduction',
           position: 'left',
           label: 'Specification',
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'integrationSidebar',
+          to: '/docs/integration-guides/overview',
           position: 'left',
           label: 'Integration',
         },
         {
-          type: 'docSidebar',
-          sidebarId: 'examplesSidebar',
+          to: '/docs/examples/use-cases',
           position: 'left',
           label: 'Examples',
         },
@@ -159,12 +156,13 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
       additionalLanguages: ['json', 'typescript', 'python', 'bash'],
     },
-    algolia: {
-      appId: 'YOUR_APP_ID',
-      apiKey: 'YOUR_SEARCH_API_KEY', 
-      indexName: 'uaicp',
-      contextualSearch: true,
-    },
+    // NOTE: Algolia search can be added later when properly configured
+    // algolia: {
+    //   appId: 'YOUR_APP_ID',
+    //   apiKey: 'YOUR_SEARCH_API_KEY', 
+    //   indexName: 'uaicp',
+    //   contextualSearch: true,
+    // },
   } satisfies Preset.ThemeConfig,
 };
 

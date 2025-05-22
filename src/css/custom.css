@@ -43,7 +43,58 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
-/* Hero section styling */
+/* STEP 1: Safe navbar styling - no mobile interference */
+.navbar__title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: var(--uaicp-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: -0.02em;
+}
+
+/* Fallback for browsers that don't support background-clip */
+@supports not (-webkit-background-clip: text) {
+  .navbar__title {
+    color: var(--ifm-color-primary);
+  }
+}
+
+[data-theme='dark'] .navbar__title {
+  background: linear-gradient(135deg, #87a0ee 0%, #9970c1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@supports not (-webkit-background-clip: text) {
+  [data-theme='dark'] .navbar__title {
+    color: var(--ifm-color-primary-light);
+  }
+}
+
+/* Mobile-specific brand title sizing */
+@media (max-width: 480px) {
+  .navbar__title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .navbar__title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .navbar__title {
+    font-size: 1rem;
+  }
+}
+
+/* STEP 2: Hero section styling */
 .hero {
   background: var(--uaicp-gradient);
   color: white;
@@ -93,261 +144,18 @@
   color: white;
 }
 
-/* Feature cards */
-.feature-card {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  border: 1px solid #e9ecef;
-  transition: transform 0.2s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-/* Status badge */
-.status-badge {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background: #28a745;
-  color: white;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-/* Documentation enhancements */
-.markdown h1 {
-  border-bottom: 2px solid var(--ifm-color-primary);
-  padding-bottom: 0.5rem;
-}
-
-.markdown h2 {
-  border-bottom: 1px solid var(--ifm-color-primary-light);
-  padding-bottom: 0.3rem;
-}
-
-/* Code blocks */
-.prism-code {
-  border-radius: 8px;
-}
-
-/* Admonitions */
-.admonition {
-  border-radius: 8px;
-  border-left: 4px solid var(--ifm-color-primary);
-}
-
-/* Table of contents */
-.table-of-contents {
-  border-left: 2px solid var(--ifm-color-primary-lightest);
-  padding-left: 1rem;
-}
-
-/* Navbar enhancements */
-.navbar {
-  backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.95);
-}
-
-[data-theme='dark'] .navbar {
-  background: rgba(24, 25, 26, 0.95);
-}
-
-/* Mobile hamburger menu fixes */
-@media (max-width: 996px) {
-  /* Reset navbar for mobile responsiveness */
-  .navbar {
-    backdrop-filter: none;
-    background: rgba(255, 255, 255, 0.98);
-    min-height: 60px;
-    padding: 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2.5rem;
   }
   
-  [data-theme='dark'] .navbar {
-    background: rgba(24, 25, 26, 0.98);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Ensure proper navbar container layout - simple and clean */
-  .navbar__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 60px;
-    padding: 0 1rem;
-    max-width: 100%;
-    position: relative;
-    width: 100%;
-  }
-  
-  /* Brand positioning - left side */
-  .navbar__brand {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-    min-width: 0;
-    max-width: 70%;
-    overflow: hidden;
-  }
-  
-  /* Reset all navbar items for mobile */
-  .navbar__items {
-    display: none;
-  }
-  
-  .navbar__items--right {
-    display: none;
-  }
-  
-  /* Show only hamburger button on mobile */
-  .navbar__toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    
-    /* Standard mobile touch target */
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    min-height: 44px;
-    flex-shrink: 0;
-    
-    /* Clean button styling */
-    padding: 0;
-    margin: 0;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    
-    /* Touch and interaction */
-    cursor: pointer;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: rgba(102, 126, 234, 0.1);
-    
-    /* Color */
-    color: var(--ifm-color-primary);
-    
-    /* Ensure visibility */
-    z-index: 10;
-    position: relative;
-  }
-  
-  /* Hamburger button hover/active states */
-  .navbar__toggle:hover {
-    background: rgba(102, 126, 234, 0.1);
-  }
-  
-  .navbar__toggle:active {
-    background: rgba(102, 126, 234, 0.2);
-    transform: scale(0.95);
-  }
-  
-  /* Hamburger icon */
-  .navbar__toggle svg {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
-    pointer-events: none;
-  }
-  
-  /* Mobile sidebar menu */
-  .navbar-sidebar {
-    z-index: 9999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-  }
-  
-  .navbar-sidebar__backdrop {
-    background: rgba(0, 0, 0, 0.6);
-  }
-  
-  .navbar-sidebar__brand {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-  
-  [data-theme='dark'] .navbar-sidebar__brand {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .navbar-sidebar__items {
-    padding: 1rem 0;
-  }
-  
-  .navbar-sidebar__item {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  
-  [data-theme='dark'] .navbar-sidebar__item {
-    border-bottom-color: rgba(255, 255, 255, 0.05);
+  .hero__subtitle {
+    font-size: 1.2rem;
   }
 }
 
-/* Logo and brand styling */
-.navbar__brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.navbar__title {
-  font-weight: 700;
-  font-size: 1.5rem;
-  background: var(--uaicp-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  letter-spacing: -0.02em;
-  /* Ensure text is not interfering with touch events */
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-/* Re-enable pointer events on the parent brand container */
-.navbar__brand {
-  pointer-events: auto;
-  cursor: pointer;
-}
-
-/* Fallback for browsers that don't support background-clip */
-@supports not (-webkit-background-clip: text) {
-  .navbar__title {
-    color: var(--ifm-color-primary);
-    pointer-events: auto;
-  }
-}
-
-[data-theme='dark'] .navbar__title {
-  background: linear-gradient(135deg, #87a0ee 0%, #9970c1 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-@supports not (-webkit-background-clip: text) {
-  [data-theme='dark'] .navbar__title {
-    color: var(--ifm-color-primary-light);
-    pointer-events: auto;
-  }
-}
-
-/* Footer */
+/* STEP 3: Footer styling */
 .footer {
   background: var(--uaicp-gradient);
   color: white;
@@ -373,44 +181,68 @@
   margin-bottom: 1rem;
 }
 
-/* Link styling improvements */
-/* Standard content links */
-.markdown a,
-article a:not(.button):not(.navbar__item):not(.menu__link) {
-  color: var(--ifm-color-primary);
-  text-decoration: underline;
-  text-decoration-color: rgba(102, 126, 234, 0.3);
-  text-underline-offset: 3px;
-  transition: all 0.2s ease;
+/* Footer responsive improvements */
+@media (max-width: 768px) {
+  .footer__links {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .footer__col {
+    margin-bottom: 1rem;
+  }
+  
+  /* Better mobile link spacing */
+  .footer a {
+    display: block;
+    padding: 0.25rem 0;
+  }
 }
 
-.markdown a:hover,
-article a:not(.button):not(.navbar__item):not(.menu__link):hover {
-  color: var(--ifm-color-primary-dark);
-  text-decoration-color: var(--ifm-color-primary);
+/* STEP 4: Feature cards and status badges */
+.feature-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid #e9ecef;
+  transition: transform 0.2s ease;
 }
 
-/* External link indicators */
-.markdown a[href^="http"]:not([href*="uaicp.org"])::after,
-article a[href^="http"]:not([href*="uaicp.org"]):not(.button):not(.navbar__item):not(.menu__link)::after {
-  content: " ↗";
-  font-size: 0.8em;
-  opacity: 0.7;
-  margin-left: 2px;
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-/* Navbar link consistency */
-.navbar__link {
-  color: var(--ifm-color-primary);
-  font-weight: 500;
-  transition: color 0.2s ease;
+@media (max-width: 768px) {
+  .feature-card {
+    margin-bottom: 1rem;
+  }
 }
 
-.navbar__link:hover {
-  color: var(--ifm-color-primary-dark);
+/* Status badge */
+.status-badge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #28a745;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
-/* Button link improvements */
+.status-badge.official {
+  background: var(--ifm-color-primary);
+  color: white;
+}
+
+.status-badge.community {
+  background: #28a745;
+  color: white;
+}
+
+/* STEP 5: Button link improvements */
 .button--primary {
   background: var(--ifm-color-primary);
   border-color: var(--ifm-color-primary);
@@ -436,6 +268,32 @@ article a[href^="http"]:not([href*="uaicp.org"]):not(.button):not(.navbar__item)
   color: white;
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* STEP 6: Link styling improvements */
+/* Standard content links */
+.markdown a,
+article a:not(.button):not(.navbar__item):not(.menu__link) {
+  color: var(--ifm-color-primary);
+  text-decoration: underline;
+  text-decoration-color: rgba(102, 126, 234, 0.3);
+  text-underline-offset: 3px;
+  transition: all 0.2s ease;
+}
+
+.markdown a:hover,
+article a:not(.button):not(.navbar__item):not(.menu__link):hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration-color: var(--ifm-color-primary);
+}
+
+/* External link indicators */
+.markdown a[href^="http"]:not([href*="uaicp.org"])::after,
+article a[href^="http"]:not([href*="uaicp.org"]):not(.button):not(.navbar__item):not(.menu__link)::after {
+  content: " ↗";
+  font-size: 0.8em;
+  opacity: 0.7;
+  margin-left: 2px;
 }
 
 /* Dark theme link adjustments */
@@ -478,205 +336,32 @@ article a:focus {
   }
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .hero__title {
-    font-size: 2.5rem;
-  }
-  
-  .hero__subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .feature-card {
-    margin-bottom: 1rem;
-  }
-  
-  /* Footer responsive improvements */
-  .footer__links {
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .footer__col {
-    margin-bottom: 1rem;
-  }
-  
-  /* Better mobile link spacing */
-  .footer a {
-    display: block;
-    padding: 0.25rem 0;
-  }
+/* STEP 7: Documentation enhancements */
+.markdown h1 {
+  border-bottom: 2px solid var(--ifm-color-primary);
+  padding-bottom: 0.5rem;
 }
 
-/* Mobile touch improvements - Apply to all mobile breakpoints */
-@media (max-width: 996px) {
-  /* Enhanced touch targets for mobile navigation */
-  .navbar__item {
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar__link {
-    padding: 12px 16px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: rgba(102, 126, 234, 0.1);
-  }
-  
-  /* Ensure brand logo is touchable */
-  .navbar__brand {
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-  
-  /* Brand title pointer events */
-  .navbar__title {
-    pointer-events: none;
-    touch-action: manipulation;
-  }
+.markdown h2 {
+  border-bottom: 1px solid var(--ifm-color-primary-light);
+  padding-bottom: 0.3rem;
 }
 
-/* iOS Safari specific fixes */
-@supports (-webkit-touch-callout: none) {
-  @media (max-width: 996px) {
-    /* iOS Safari hamburger menu fixes */
-    .navbar__toggle {
-      -webkit-appearance: none;
-      -webkit-touch-callout: none;
-      -webkit-user-select: none;
-      user-select: none;
-      -webkit-tap-highlight-color: rgba(0,0,0,0);
-      outline: none;
-      
-      /* Hardware acceleration for smooth interactions */
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-    
-    /* iOS Safari navbar performance */
-    .navbar {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      position: sticky;
-      top: 0;
-    }
-  }
+/* Code blocks */
+.prism-code {
+  border-radius: 8px;
 }
 
-/* Android-specific optimizations */
-@media (max-width: 996px) {
-  /* Android Chrome and WebView fixes */
-  .navbar__toggle {
-    /* Enhanced touch response for Android */
-    -ms-touch-action: manipulation;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    
-    /* Better tap highlighting for Android */
-    -webkit-tap-highlight-color: rgba(102, 126, 234, 0.1);
-    -moz-tap-highlight-color: rgba(102, 126, 234, 0.1);
-  }
-  
-  /* Android WebView specific fixes */
-  .navbar__toggle svg {
-    /* Prevent SVG touch issues on Android */
-    pointer-events: none !important;
-    touch-action: none;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-  }
-  
-  /* Better touch feedback for all Android browsers */
-  .navbar__toggle:active {
-    background: rgba(102, 126, 234, 0.15) !important;
-    transform: scale(0.95);
-    transition: all 0.1s ease;
-  }
-  
-  /* Prevent Android zoom issues */
-  .navbar__brand,
-  .navbar__link {
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
+/* Admonitions */
+.admonition {
+  border-radius: 8px;
+  border-left: 4px solid var(--ifm-color-primary);
 }
 
-/* iPad-specific optimizations */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-  /* iPad-specific hamburger menu enhancements */
-  .navbar__toggle {
-    /* iPad touch targets - larger than phone, optimized for tablet */
-    width: 50px !important;
-    height: 50px !important;
-    
-    /* Enhanced iPad touch response */
-    -webkit-tap-highlight-color: rgba(102, 126, 234, 0.15);
-    cursor: pointer;
-    
-    /* Better visual feedback on iPad */
-    transition: all 0.2s ease;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.08);
-  }
-  
-  .navbar__toggle:hover,
-  .navbar__toggle:active {
-    background: rgba(102, 126, 234, 0.15) !important;
-    transform: scale(0.96);
-  }
-  
-  /* iPad navbar adjustments */
-  .navbar {
-    /* Enhanced backdrop support for iPad */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.94);
-  }
-  
-  [data-theme='dark'] .navbar {
-    background: rgba(24, 25, 26, 0.94);
-  }
-}
-
-/* iPad landscape orientation optimizations */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-  /* In landscape, iPad might have more horizontal space */
-  .navbar__toggle {
-    /* Slightly smaller in landscape if more space is available */
-    width: 46px !important;
-    height: 46px !important;
-  }
-}
-
-/* iPad Pro specific optimizations (larger screens) */
-@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) {
-  /* iPad Pro touch enhancements */
-  .navbar__toggle {
-    width: 52px !important;
-    height: 52px !important;
-    
-    /* Enhanced visual feedback for larger iPad Pro screens */
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(102, 126, 234, 0.1);
-  }
-  
-  .navbar__toggle:hover,
-  .navbar__toggle:active {
-    background: rgba(102, 126, 234, 0.2) !important;
-    border-color: rgba(102, 126, 234, 0.3);
-  }
+/* Table of contents */
+.table-of-contents {
+  border-left: 2px solid var(--ifm-color-primary-lightest);
+  padding-left: 1rem;
 }
 
 /* Specification-specific styling */
@@ -714,7 +399,7 @@ article a:focus {
   border-radius: 0 8px 8px 0;
 }
 
-/* Community features styling */
+/* STEP 8: Community features styling - FINAL LAYER */
 .contributor-showcase {
   padding: 2rem 0;
 }
@@ -804,69 +489,10 @@ article a:focus {
   margin-bottom: 1rem;
 }
 
-.status-badge.official {
-  background: var(--ifm-color-primary);
-  color: white;
-}
-
-.status-badge.community {
-  background: #28a745;
-  color: white;
-}
-
 .implementation-meta {
   display: flex;
   gap: 1rem;
   margin: 1rem 0;
   font-size: 0.9rem;
   color: #6c757d;
-}
-
-/* Mobile responsiveness improvements for brand title */
-@media (max-width: 996px) {
-  .navbar__title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-
-/* Mobile-specific brand title sizing */
-@media (max-width: 480px) {
-  .navbar__title {
-    font-size: 1.25rem;
-  }
-  
-  .navbar__inner {
-    padding: 0 0.75rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .navbar__title {
-    font-size: 1.1rem;
-  }
-  
-  .navbar__inner {
-    padding: 0 0.5rem;
-  }
-}
-
-/* Ensure navbar doesn't break on very small screens */
-@media (max-width: 320px) {
-  .navbar__title {
-    font-size: 1rem;
-  }
-  
-  .navbar__toggle {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    min-height: 40px;
-  }
-  
-  .navbar__toggle svg {
-    width: 20px;
-    height: 20px;
-  }
 }
