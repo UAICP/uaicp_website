@@ -1,8 +1,10 @@
 name: Deploy Docusaurus to GitHub Pages
 
 on:
-  push:
-    branches: [ main ]
+  workflow_run:
+    workflows: ["Build and Test Docusaurus Website"]
+    branches: [main]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -15,8 +17,27 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  deploy-if-tests-passed:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    
+    steps:
+    - name: Check test results
+      run: |
+        echo "🔍 Checking test workflow results..."
+        echo "Test workflow conclusion: ${{ github.event.workflow_run.conclusion }}"
+        echo "Event name: ${{ github.event_name }}"
+        
+        if [ "${{ github.event.workflow_run.conclusion }}" = "success" ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "✅ Tests passed or manual trigger - proceeding with deployment"
+        else
+          echo "❌ Tests failed - deployment cancelled"
+          exit 1
+        fi
+
   build:
     runs-on: ubuntu-latest
+    needs: deploy-if-tests-passed
     
     steps:
     - name: Checkout
