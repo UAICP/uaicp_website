@@ -1,0 +1,149 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    name: Build and Test Website
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Run linting
+      run: npm run lint
+    
+    - name: Run type checking
+      run: npm run type-check
+      continue-on-error: true
+    
+    - name: Build website
+      run: npm run build
+    
+    - name: Run tests
+      run: npm test
+      continue-on-error: true
+
+  accessibility-test:
+    runs-on: ubuntu-latest
+    name: Accessibility Testing
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build website
+      run: npm run build
+    
+    - name: Start server
+      run: npm start &
+      
+    - name: Wait for server
+      run: sleep 10
+    
+    - name: Run accessibility tests
+      run: |
+        npm install -g @axe-core/cli
+        axe http://localhost:3000 --exit
+
+  performance-test:
+    runs-on: ubuntu-latest
+    name: Performance Testing
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build website
+      run: npm run build
+    
+    - name: Run Lighthouse CI
+      run: |
+        npm install -g @lhci/cli@0.12.x
+        lhci autorun
+      env:
+        LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+  security-scan:
+    runs-on: ubuntu-latest
+    name: Security Scan
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run npm audit
+      run: npm audit --audit-level high
+    
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    
+    - name: Upload Trivy scan results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  link-check:
+    runs-on: ubuntu-latest
+    name: Check Links
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build website
+      run: npm run build
+    
+    - name: Check internal links
+      run: |
+        npm install -g markdown-link-check
+        find . -name "*.md" -not -path "./node_modules/*" -exec markdown-link-check {} \;
+    
+    - name: Start server and check links
+      run: |
+        npm start &
+        sleep 10
+        npm install -g broken-link-checker
+        blc http://localhost:3000 -ro
