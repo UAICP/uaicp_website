@@ -1,0 +1,75 @@
+name: Community Engagement Automation
+
+on:
+  issues:
+    types: [opened, closed]
+  pull_request:
+    types: [opened, merged, closed]
+  discussion:
+    types: [created]
+
+jobs:
+  welcome-contributor:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'opened'
+    steps:
+      - name: Welcome new contributors
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Check if this is user's first contribution
+            const { data: contributions } = await github.rest.repos.listContributors({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            
+            const isFirstTime = !contributions.find(c => c.login === context.actor);
+            
+            if (isFirstTime) {
+              const welcomeMessage = `
+              🎉 **Welcome to UAICP!** 
+              
+              Thank you for your ${context.eventName === 'issues' ? 'issue' : 'pull request'}! 
+              
+              This appears to be your first contribution to UAICP. Here are some helpful resources:
+              
+              - 📖 [Documentation](https://uaicp.org/docs)
+              - 🤝 [Contributing Guide](https://uaicp.org/docs/governance/contributing)
+              - 💬 [Community Discussion](https://github.com/UAICP/uaicp_specification/discussions)
+              - 🧑‍💻 [Slack Workspace](https://uaicp.slack.com)
+              
+              A maintainer will review this soon. Feel free to join our community chat if you have questions!
+              `;
+              
+              if (context.eventName === 'issues') {
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: welcomeMessage
+                });
+              } else {
+                github.rest.pulls.createReview({
+                  pull_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: welcomeMessage,
+                  event: 'COMMENT'
+                });
+              }
+            }
+
+  sync-to-website:
+    runs-on: ubuntu-latest
+    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    steps:
+      - name: Trigger website rebuild
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Trigger website rebuild when content changes
+            console.log('Content updated, triggering website rebuild...');
+            
+            // Could trigger a repository dispatch to the website repo
+            // This would be configured if repositories are separate

@@ -1,0 +1,11 @@
+uaicp_team:
+  name: UAICP Team
+  title: AI Interoperability Foundation
+  url: https://github.com/UAICP
+  image_url: https://github.com/UAICP.png
+  
+core_team:
+  name: UAICP Core Team
+  title: Core Contributors
+  url: https://github.com/UAICP/uaicp_specification
+  image_url: https://github.com/UAICP.png

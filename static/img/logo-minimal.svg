@@ -1,0 +1,33 @@
+<svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="minimalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Minimal U shape with connection point - inspired by your reference -->
+  <path d="M 4 6 
+           L 4 16
+           Q 4 22, 10 22
+           Q 16 22, 16 16
+           L 16 10" 
+        stroke="url(#minimalGradient)" 
+        stroke-width="3" 
+        fill="none" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+  
+  <!-- Connection dots -->
+  <circle cx="4" cy="6" r="2" fill="url(#minimalGradient)"/>
+  <circle cx="16" cy="10" r="2" fill="url(#minimalGradient)"/>
+  
+  <!-- Simple curve extension -->
+  <path d="M 18 10
+           Q 24 8, 24 14
+           Q 24 20, 18 18" 
+        stroke="url(#minimalGradient)" 
+        stroke-width="2" 
+        fill="none" 
+        stroke-linecap="round"/>
+</svg>

@@ -1,112 +1,201 @@
 # UAICP Official Website
 
-This repository contains the source code for the official Universal AI Communication Protocol (UAICP) website at [https://uaicp.org](https://uaicp.org).
+The official website for the Universal AI Communication Protocol (UAICP) - an open specification for AI system interoperability.
 
-## Repository Overview
+🌐 **Live Site**: [https://uaicp.org](https://uaicp.org)
 
-This repository contains the website and documentation portal for UAICP. For the technical specification and reference implementations, visit [uaicp/uaicp_specification](https://github.com/uaicp/uaicp_specification).
+Built with Docusaurus, featuring comprehensive documentation, community features, and GitHub integration.
 
-## UAICP Project Repositories
+## Features
 
-- **[uaicp/uaicp_specification](https://github.com/uaicp/uaicp_specification)** - Technical specification and reference implementations
-- **[uaicp/uaicp_website](https://github.com/uaicp/uaicp_website)** (this repository) - Official website and documentation portal
-- **Website**: [https://uaicp.org](https://uaicp.org)
+- 📖 **Complete Documentation** - Specification, integration guides, and examples
+- 🤝 **Community Integration** - GitHub-first contribution workflow
+- 🔍 **Live GitHub Data** - Real-time contributor stats and project metrics
+- 🌐 **Multi-Protocol Support** - Documentation for all major AI protocols
+- 📱 **Responsive Design** - Works on all devices
+- 🚀 **Auto-Deploy** - Continuous deployment to GitHub Pages
 
-## Development
-
-This website is built using [Next.js](https://nextjs.org/) and deployed on [Vercel](https://vercel.com/).
+## Quick Start
 
 ### Prerequisites
 
 - Node.js 18+ 
 - npm or yarn
 
-### Getting Started
+### Development
 
 ```bash
-# Clone the repository
-git clone https://github.com/uaicp/uaicp_website.git
-cd uaicp_website
-
 # Install dependencies
 npm install
 
-# Start the development server
-npm run dev
+# Start development server
+npm start
 
-# Open http://localhost:3000 in your browser
+# Open http://localhost:3000
 ```
 
-### Project Structure
+### Building
+
+```bash
+# Build for production
+npm run build
+
+# Serve built site locally
+npm run serve
+```
+
+## Project Structure
 
 ```
+uaicp_website/
+├── docs/                          # Documentation pages
+│   ├── specification/             # Core UAICP specification
+│   ├── integration-guides/        # Platform integration guides
+│   ├── examples/                  # Use cases and code examples
+│   └── governance/                # Community governance docs
+├── blog/                          # Blog posts and announcements
 ├── src/
-│   ├── components/          # Reusable UI components
-│   ├── pages/              # Website pages
-│   ├── styles/             # CSS and styling
-│   └── lib/                # Utility functions
-├── public/                 # Static assets
-├── content/                # Markdown content
-│   ├── docs/               # Documentation pages
-│   ├── blog/               # Blog posts
-│   └── examples/           # Example implementations
-└── scripts/                # Build and deployment scripts
+│   ├── components/                # React components
+│   │   ├── HomepageFeatures/      # Landing page features
+│   │   └── CommunityFeatures/     # Community widgets
+│   ├── pages/                     # Custom pages
+│   │   ├── index.tsx              # Homepage
+│   │   └── community.tsx          # Community page
+│   └── css/                       # Custom styling
+├── static/                        # Static assets
+└── .github/workflows/             # CI/CD automation
 ```
-
-## Contributing
-
-We welcome contributions to improve the website! This includes:
-
-- Fixing bugs and improving user experience
-- Adding new documentation and examples
-- Improving design and accessibility
-- Writing blog posts about UAICP implementations
-
-### Contribution Process
-
-1. Fork this repository
-2. Create a feature branch: `git checkout -b feature/your-feature-name`
-3. Make your changes
-4. Test your changes locally
-5. Commit your changes: `git commit -m "Add your feature"`
-6. Push to the branch: `git push origin feature/your-feature-name`
-7. Open a pull request
-
-### Guidelines
-
-- Follow the existing code style and conventions
-- Test your changes on different screen sizes
-- Ensure accessibility standards are met
-- Update documentation as needed
-
-For technical specification contributions, please visit [uaicp/uaicp_specification](https://github.com/uaicp/uaicp_specification).
 
 ## Content Management
 
-The website content is managed through:
+### Documentation
 
-- **Static pages**: Located in `src/pages/`
-- **Documentation**: Markdown files in `content/docs/`
-- **Blog posts**: Markdown files in `content/blog/`
-- **Examples**: Code examples in `content/examples/`
+Documentation is organized into several sections:
 
-Some content is automatically synchronized from the specification repository to ensure consistency between the technical specification and the website documentation.
+- **Specification** (`docs/specification/`) - Technical specification and architecture
+- **Integration Guides** (`docs/integration-guides/`) - Platform-specific implementation guides
+- **Examples** (`docs/examples/`) - Real-world use cases and code samples
+- **Governance** (`docs/governance/`) - Community processes and contribution guidelines
+
+### Content Sync
+
+The website automatically syncs content from the specification repository:
+
+- Core specification updates are pulled during build
+- Integration guides are synchronized from the main repo
+- Examples are updated to reflect the latest patterns
+
+### Blog Posts
+
+Blog posts are written in Markdown with front matter:
+
+```markdown
+---
+slug: post-slug
+title: Post Title
+authors: [author-name]
+tags: [tag1, tag2]
+---
+
+Post content here...
+```
+
+## Community Features
+
+### GitHub Integration
+
+- **Live Contributor Data** - Real-time contributor statistics from GitHub API
+- **Automatic Welcome Messages** - New contributors receive helpful onboarding
+- **Issue Templates** - Structured templates for bug reports and feature requests
+- **Pull Request Automation** - Automated checks and community engagement
+
+### Community Widgets
+
+- **GitHub Stats** - Live repository statistics
+- **Contributor Showcase** - Featured community members
+- **Implementation Gallery** - User-submitted projects
+- **Quick Contribution** - Easy ways to get involved
 
 ## Deployment
 
-The website is automatically deployed to production when changes are pushed to the `main` branch. Preview deployments are created for pull requests.
+### GitHub Pages (Current)
 
-- **Production**: [https://uaicp.org](https://uaicp.org)
-- **Staging**: Automatic preview URLs for pull requests
+The site automatically deploys to GitHub Pages:
+
+1. Push to `main` branch triggers build
+2. Content is synced from specification repo
+3. Site is built with Docusaurus
+4. Deployed to `https://uaicp.org`
+
+### Custom Domain
+
+The site is configured for the custom domain `uaicp.org`:
+
+- DNS A records point to GitHub Pages
+- HTTPS is automatically enabled
+- Redirects are handled properly
+
+## Development Guidelines
+
+### Adding Documentation
+
+1. Create new `.md` files in appropriate `docs/` subdirectory
+2. Add front matter with `sidebar_position` and other metadata
+3. Update `sidebars.ts` if creating new categories
+4. Test locally before submitting PR
+
+### Adding Components
+
+1. Create components in `src/components/`
+2. Use TypeScript for all new components
+3. Follow existing naming conventions
+4. Add proper PropTypes or TypeScript interfaces
+
+### Styling
+
+- Use CSS modules for component-specific styles
+- Global styles go in `src/css/custom.css`
+- Follow the existing UAICP brand colors and design system
+- Ensure responsive design for all screen sizes
+
+## Contributing
+
+### Quick Edits
+
+1. Click "Edit this page" on any documentation page
+2. Make changes directly in GitHub
+3. Submit pull request
+4. Changes auto-deploy after merge
+
+### Local Development
+
+1. Fork the repository
+2. Clone your fork locally
+3. Create feature branch
+4. Make changes and test locally
+5. Submit pull request
+
+### Content Guidelines
+
+- Write clear, concise documentation
+- Include code examples where appropriate
+- Follow the existing tone and style
+- Test all code examples before submitting
+- Add appropriate front matter to all pages
 
 ## Community
 
-- **GitHub Organization**: [https://github.com/uaicp](https://github.com/uaicp)
-- **GitHub Issues**: [Issues](https://github.com/uaicp/uaicp_website/issues) for website-related issues
-- **Community Forum**: https://community.uaicp.org
-- **Slack Workspace**: https://uaicp.slack.com
-- **Mailing List**: announcements@uaicp.org
+- **GitHub Discussions** - Technical questions and feature discussions
+- **Discord** - Real-time community chat
+- **Slack** - Professional and enterprise discussions
+- **Issues** - Bug reports and feature requests
 
 ## License
 
-This website is licensed under the [MIT License](LICENSE). Content is licensed under [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+- Website code: MIT License
+- Documentation content: Creative Commons Attribution 4.0 International (CC BY 4.0)
+- UAICP specification: Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+---
+
+Built with ❤️ by the UAICP community
