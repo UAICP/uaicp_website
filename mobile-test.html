@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAICP Mobile Menu Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .device-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+        button:active {
+            background: #5a67d8;
+            transform: scale(0.98);
+        }
+        .touch-test {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 10px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            touch-action: manipulation;
+        }
+        .touch-test:active {
+            background: #5a67d8;
+            transform: scale(0.98);
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 UAICP Mobile Menu Test Suite</h1>
+    <p>This page will help you test the mobile hamburger menu functionality on your iPhone Max.</p>
+
+    <div class="test-section">
+        <h2>📱 Device Information</h2>
+        <div class="device-info" id="deviceInfo">
+            <strong>User Agent:</strong> <span id="userAgent"></span><br>
+            <strong>Screen Size:</strong> <span id="screenSize"></span><br>
+            <strong>Viewport Size:</strong> <span id="viewportSize"></span><br>
+            <strong>Touch Support:</strong> <span id="touchSupport"></span><br>
+            <strong>iOS Safari:</strong> <span id="iosSafari"></span>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎯 Touch Response Test</h2>
+        <p>Touch/tap the area below to test basic touch functionality:</p>
+        <div class="touch-test" id="touchTest" onclick="touchTestHandler()">
+            TAP HERE TO TEST TOUCH RESPONSE
+        </div>
+        <div id="touchResult" class="status"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🍔 Hamburger Button Test</h2>
+        <p>Test different button styles that mimic the hamburger menu:</p>
+        <button onclick="buttonTest(1)">Standard Button Test</button>
+        <button onclick="buttonTest(2)" style="background: transparent; border: 1px solid #667eea; color: #667eea;">Transparent Button Test</button>
+        <button onclick="buttonTest(3)" style="min-width: 44px; min-height: 44px; padding: 8px;">Icon-sized Button</button>
+        <div id="buttonResult" class="status"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🌐 Live Website Test</h2>
+        <p>Below is your actual UAICP website running on localhost:3001. Test the hamburger menu directly:</p>
+        <iframe src="http://localhost:3001" id="websiteFrame"></iframe>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Resize your browser to mobile width (or use device tools)</li>
+            <li>Look for the hamburger menu button (☰) in the top-right corner</li>
+            <li>Tap/click the hamburger button</li>
+            <li>The navigation menu should slide out from the side</li>
+            <li>Tap again to close the menu</li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 Debugging Information</h2>
+        <button onclick="runDiagnostics()">Run Full Diagnostics</button>
+        <div id="diagnostics"></div>
+    </div>
+
+    <script>
+        // Populate device information
+        document.getElementById('userAgent').textContent = navigator.userAgent;
+        document.getElementById('screenSize').textContent = `${screen.width} x ${screen.height}`;
+        document.getElementById('viewportSize').textContent = `${window.innerWidth} x ${window.innerHeight}`;
+        document.getElementById('touchSupport').textContent = 'ontouchstart' in window ? 'Yes' : 'No';
+        
+        // Detect iOS Safari
+        const isIOSSafari = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isAndroid = /Android/.test(navigator.userAgent);
+        const isChrome = /Chrome/.test(navigator.userAgent);
+        const isFirefox = /Firefox/.test(navigator.userAgent);
+        const isSamsungInternet = /SamsungBrowser/.test(navigator.userAgent);
+        const isIPad = /iPad/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const isIPhone = /iPhone/.test(navigator.userAgent);
+        
+        document.getElementById('iosSafari').textContent = isIOSSafari ? 'Yes' : 'No';
+        
+        // Add device-specific detection
+        const deviceInfo = document.getElementById('deviceInfo');
+        deviceInfo.innerHTML += `<br><strong>iPad:</strong> <span>${isIPad ? 'Yes' : 'No'}</span>`;
+        deviceInfo.innerHTML += `<br><strong>iPhone:</strong> <span>${isIPhone ? 'Yes' : 'No'}</span>`;
+        deviceInfo.innerHTML += `<br><strong>Android Device:</strong> <span>${isAndroid ? 'Yes' : 'No'}</span>`;
+        if (isAndroid) {
+            deviceInfo.innerHTML += `<br><strong>Chrome:</strong> <span>${isChrome ? 'Yes' : 'No'}</span>`;
+            deviceInfo.innerHTML += `<br><strong>Firefox:</strong> <span>${isFirefox ? 'Yes' : 'No'}</span>`;
+            deviceInfo.innerHTML += `<br><strong>Samsung Internet:</strong> <span>${isSamsungInternet ? 'Yes' : 'No'}</span>`;
+        }
+
+        let touchTestCount = 0;
+        function touchTestHandler() {
+            touchTestCount++;
+            const result = document.getElementById('touchResult');
+            result.className = 'status pass';
+            result.textContent = `✅ Touch test successful! (${touchTestCount} touches registered)`;
+        }
+
+        let buttonTestCount = 0;
+        function buttonTest(buttonNumber) {
+            buttonTestCount++;
+            const result = document.getElementById('buttonResult');
+            result.className = 'status pass';
+            result.textContent = `✅ Button ${buttonNumber} clicked successfully! (${buttonTestCount} total clicks)`;
+        }
+
+        function runDiagnostics() {
+            const diagnostics = document.getElementById('diagnostics');
+            const tests = [];
+            
+            const isAndroid = /Android/.test(navigator.userAgent);
+            const isChrome = /Chrome/.test(navigator.userAgent);
+            const isFirefox = /Firefox/.test(navigator.userAgent);
+            const isSamsungInternet = /SamsungBrowser/.test(navigator.userAgent);
+            const isIPad = /iPad/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const isIPhone = /iPhone/.test(navigator.userAgent);
+
+            // Test 1: Check if touch events are supported
+            tests.push(`Touch Events: ${'ontouchstart' in window ? '✅ Supported' : '❌ Not Supported'}`);
+
+            // Test 2: Check if pointer events are supported
+            tests.push(`Pointer Events: ${'onpointerdown' in window ? '✅ Supported' : '❌ Not Supported'}`);
+
+            // Test 3: Check viewport meta tag
+            const viewport = document.querySelector('meta[name="viewport"]');
+            tests.push(`Viewport Meta: ${viewport ? '✅ Present' : '❌ Missing'}`);
+
+            // Test 4: Check for backdrop-filter support
+            const testDiv = document.createElement('div');
+            testDiv.style.backdropFilter = 'blur(1px)';
+            tests.push(`Backdrop Filter: ${testDiv.style.backdropFilter ? '✅ Supported' : '❌ Not Supported'}`);
+
+            // Test 5: Check CSS touch-action support
+            testDiv.style.touchAction = 'manipulation';
+            tests.push(`Touch Action: ${testDiv.style.touchAction ? '✅ Supported' : '❌ Not Supported'}`);
+
+            // Test 6: Check if device is mobile
+            const isMobile = window.innerWidth <= 996;
+            tests.push(`Mobile Viewport: ${isMobile ? '✅ Yes (≤996px)' : '❌ No (>996px)'}`);
+
+            // Test 7: Check for iOS specific features
+            tests.push(`iOS Device: ${isIOSSafari ? '✅ Yes' : '❌ No'}`);
+            tests.push(`iPad: ${isIPad ? '✅ Yes' : '❌ No'}`);
+            tests.push(`iPhone: ${isIPhone ? '✅ Yes' : '❌ No'}`);
+            
+            // Test 8: Check for Android specific features
+            tests.push(`Android Device: ${isAndroid ? '✅ Yes' : '❌ No'}`);
+            if (isAndroid) {
+                tests.push(`Android Chrome: ${isChrome ? '✅ Yes' : '❌ No'}`);
+                tests.push(`Android Firefox: ${isFirefox ? '✅ Yes' : '❌ No'}`);
+                tests.push(`Samsung Internet: ${isSamsungInternet ? '✅ Yes' : '❌ No'}`);
+            }
+
+            // Test 9: Check for WebKit
+            const isWebKit = /webkit/i.test(navigator.userAgent);
+            tests.push(`WebKit Browser: ${isWebKit ? '✅ Yes' : '❌ No'}`);
+            
+            // Test 10: Check device pixel ratio
+            tests.push(`Device Pixel Ratio: ${window.devicePixelRatio || 1}`);
+            
+            // Test 11: iPad-specific tests
+            if (isIPad) {
+                const isIPadPro = window.screen.width >= 1024 || window.screen.height >= 1024;
+                tests.push(`iPad Pro: ${isIPadPro ? '✅ Yes' : '❌ No'}`);
+                tests.push(`Orientation: ${window.innerWidth > window.innerHeight ? 'Landscape' : 'Portrait'}`);
+            }
+            diagnostics.innerHTML = `
+                <div style="background: #fff; padding: 15px; border-radius: 6px; margin-top: 10px;">
+                    <h4>🔍 Diagnostic Results:</h4>
+                    ${tests.map(test => `<div style="margin: 5px 0;">${test}</div>`).join('')}
+                    
+                    <h4>📋 Recommended Actions:</h4>
+                    <div style="margin: 5px 0;">
+                        ${isIOSSafari ? 
+                            (isIPad ? 
+                                '• Test with iPad in both portrait and landscape<br>• Check touch targets (50px for iPad)<br>• Verify backdrop filter performance<br>• Test menu sidebar width (320px)' :
+                                '• Test with iOS device tools in Safari<br>• Check for -webkit- prefixes<br>• Verify touch-action CSS'
+                            ) : 
+                            isAndroid ? 
+                                '• Test with Android Chrome DevTools<br>• Check touch responsiveness<br>• Verify button sizing (48px minimum)<br>• Test in different Android browsers' :
+                                '• Test on actual mobile device<br>• Use browser dev tools mobile emulation'
+                        }
+                    </div>
+                    
+                    <h4>🔗 Quick Links:</h4>
+                    <div style="margin: 5px 0;">
+                        <a href="http://localhost:3001" target="_blank">Open UAICP Site in New Tab</a><br>
+                        <a href="http://localhost:3001" target="_blank" onclick="setTimeout(() => window.open('http://localhost:3001'), 100)">Force Reload Site</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Auto-run basic diagnostics on load
+        window.addEventListener('load', () => {
+            setTimeout(runDiagnostics, 1000);
+        });
+
+        // Monitor viewport changes
+        window.addEventListener('resize', () => {
+            document.getElementById('viewportSize').textContent = `${window.innerWidth} x ${window.innerHeight}`;
+        });
+    </script>
+</body>
+</html>
