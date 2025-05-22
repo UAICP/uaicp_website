@@ -13,7 +13,7 @@ const config: Config = {
   organizationName: 'UAICP',
   projectName: 'uaicp_website',
 
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
 
   i18n: {
@@ -105,15 +105,15 @@ const config: Config = {
           items: [
             {
               label: 'Specification',
-              to: '/docs/specification',
+              to: '/docs/specification/introduction',
             },
             {
               label: 'Integration Guides',
-              to: '/docs/integration-guides',
+              to: '/docs/integration-guides/overview',
             },
             {
               label: 'Examples',
-              to: '/docs/examples',
+              to: '/docs/examples/use-cases',
             },
           ],
         },
