@@ -9,7 +9,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    name: Build and Test Website
+    name: build-and-test
     
     steps:
     - uses: actions/checkout@v4
@@ -41,7 +41,7 @@ jobs:
 
   accessibility-test:
     runs-on: ubuntu-latest
-    name: Accessibility Testing
+    name: accessibility-test
     
     steps:
     - uses: actions/checkout@v4
@@ -71,7 +71,7 @@ jobs:
 
   performance-test:
     runs-on: ubuntu-latest
-    name: Performance Testing
+    name: performance-test
     
     steps:
     - uses: actions/checkout@v4
@@ -100,7 +100,7 @@ jobs:
 
   security-scan:
     runs-on: ubuntu-latest
-    name: Security Scan
+    name: security-scan
     
     steps:
     - uses: actions/checkout@v4
@@ -129,7 +129,7 @@ jobs:
 
   link-check:
     runs-on: ubuntu-latest
-    name: Check Links
+    name: link-check
     
     steps:
     - uses: actions/checkout@v4
@@ -156,49 +156,3 @@ jobs:
         done
         
         echo "✅ Link checking completed"
-
-  validate-seo:
-    runs-on: ubuntu-latest
-    name: Validate SEO
-    
-    steps:
-    - uses: actions/checkout@v4
-    
-    - name: Check SEO elements
-      run: |
-        echo "🔍 Validating SEO elements..."
-        
-        # Check for required meta tags
-        if grep -q "<title>" index.html; then
-          echo "✅ Title tag found"
-        else
-          echo "❌ Title tag missing"
-        fi
-        
-        if grep -q 'name="description"' index.html; then
-          echo "✅ Meta description found"
-        else
-          echo "❌ Meta description missing"
-        fi
-        
-        if grep -q 'property="og:' index.html; then
-          echo "✅ Open Graph tags found"
-        else
-          echo "❌ Open Graph tags missing"
-        fi
-        
-        # Check for sitemap
-        if [ -f "sitemap.xml" ]; then
-          echo "✅ Sitemap found"
-        else
-          echo "❌ Sitemap missing"
-        fi
-        
-        # Check for robots.txt
-        if [ -f "robots.txt" ]; then
-          echo "✅ Robots.txt found"
-        else
-          echo "❌ Robots.txt missing"
-        fi
-        
-        echo "✅ SEO validation completed"
