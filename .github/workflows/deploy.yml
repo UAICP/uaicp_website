@@ -1,149 +1,71 @@
-name: Build and Deploy Website
+name: Deploy Static Website
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout code
+    - name: Checkout
       uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Lint code
-      run: npm run lint
-      
-    - name: Run tests
-      run: npm test
-      
-    - name: Build website
-      run: npm run build
-      
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-files
-        path: |
-          .next/
-          out/
-          
-  lighthouse:
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.event_name == 'pull_request'
     
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js  
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build website
-      run: npm run build
-      
-    - name: Start server
-      run: npm start &
-      
-    - name: Wait for server
-      run: npx wait-on http://localhost:3000
-      
-    - name: Run Lighthouse CI
-      run: npx @lhci/cli@0.12.x autorun
-      env:
-        LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
-        
-  accessibility:
-    runs-on: ubuntu-latest
-    needs: build
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
     
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build website
-      run: npm run build
-      
-    - name: Start server
-      run: npm start &
-      
-    - name: Wait for server
-      run: npx wait-on http://localhost:3000
-      
-    - name: Run accessibility tests
+    - name: Prepare site files
       run: |
-        npm install -g @axe-core/cli
-        axe http://localhost:3000 --exit
+        echo "📁 Preparing static site files..."
         
-  deploy-preview:
-    runs-on: ubuntu-latest
-    needs: [build, accessibility]
-    if: github.event_name == 'pull_request'
+        # Ensure CNAME file exists for custom domain
+        if [ ! -f "CNAME" ]; then
+          echo "uaicp.org" > CNAME
+          echo "✅ CNAME file created"
+        else
+          echo "✅ CNAME file exists: $(cat CNAME)"
+        fi
+        
+        # Ensure .nojekyll exists
+        if [ ! -f ".nojekyll" ]; then
+          touch .nojekyll
+          echo "✅ .nojekyll file created"
+        else
+          echo "✅ .nojekyll file exists"
+        fi
+        
+        # List files that will be deployed
+        echo "📋 Files to be deployed:"
+        ls -la
+        
+        echo "✅ Site preparation completed"
     
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        name: build-files
-        
-    - name: Deploy to Vercel Preview
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        working-directory: ./
-        
-  deploy-production:
-    runs-on: ubuntu-latest
-    needs: [build, accessibility]
-    if: github.ref == 'refs/heads/main'
+        path: '.'
     
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
       
-    - name: Download build artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: build-files
-        
-    - name: Deploy to Vercel Production
-      uses: amondnet/vercel-action@v25
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        vercel-args: '--prod'
-        working-directory: ./
+    - name: Output deployment info
+      run: |
+        echo "🚀 Deployment completed!"
+        echo "📍 GitHub Pages URL: ${{ steps.deployment.outputs.page_url }}"
+        echo "🌐 Custom domain: https://uaicp.org"
+        echo "✅ Website is now live!"
