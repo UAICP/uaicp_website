@@ -1,12 +1,3 @@
-name: Build and Test Static Website
-
-on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
-
-jobs:
 name: Build and Test Docusaurus Website
 
 on:
