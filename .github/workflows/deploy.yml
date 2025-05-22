@@ -59,36 +59,71 @@ jobs:
         # Create sync directories
         mkdir -p temp-sync
         
-        # Try to download specification content (continue build even if this fails)
+        # Download specification content (fail build if any download fails)
         echo "📥 Downloading specification content..."
+        
+        echo "📄 Downloading main specification..."
         curl -f -H "Accept: application/vnd.github.v3.raw" \
              -o temp-sync/specification.md \
-             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/specification/specification.md || echo "⚠️ Could not download specification.md"
+             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/specification/specification.md
         
+        echo "📄 Downloading MCP integration guide..."
         curl -f -H "Accept: application/vnd.github.v3.raw" \
              -o temp-sync/mcp-integration.md \
-             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/integration-guides/MCP-INTEGRATION.md || echo "⚠️ Could not download mcp-integration.md"
+             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/integration-guides/MCP-INTEGRATION.md
         
+        echo "📄 Downloading use cases..."
         curl -f -H "Accept: application/vnd.github.v3.raw" \
              -o temp-sync/use-cases.md \
-             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/examples/use-cases.md || echo "⚠️ Could not download use-cases.md"
+             https://api.github.com/repos/UAICP/uaicp_specification/contents/docs/examples/use-cases.md
         
-        # Process downloaded content if available
-        if [ -f temp-sync/specification.md ]; then
-          echo "✅ Processing specification.md..."
-          # Add Docusaurus front matter to specification
-          echo "---" > docs/specification/full-specification.md
-          echo "sidebar_position: 4" >> docs/specification/full-specification.md
-          echo "---" >> docs/specification/full-specification.md
-          echo "" >> docs/specification/full-specification.md
-          cat temp-sync/specification.md >> docs/specification/full-specification.md
-        else
-          echo "ℹ️ Using existing specification content"
+        # Process downloaded content - all files must exist or build fails
+        echo "✅ Processing specification.md..."
+        # Add Docusaurus front matter to specification
+        echo "---" > docs/specification/full-specification.md
+        echo "sidebar_position: 4" >> docs/specification/full-specification.md
+        echo "title: 'Complete UAICP Specification'" >> docs/specification/full-specification.md
+        echo "---" >> docs/specification/full-specification.md
+        echo "" >> docs/specification/full-specification.md
+        cat temp-sync/specification.md >> docs/specification/full-specification.md
+        
+        echo "✅ Processing MCP integration guide..."
+        # Add Docusaurus front matter to MCP integration
+        echo "---" > docs/integration-guides/mcp-integration-complete.md
+        echo "sidebar_position: 2" >> docs/integration-guides/mcp-integration-complete.md
+        echo "title: 'Complete MCP Integration Guide'" >> docs/integration-guides/mcp-integration-complete.md
+        echo "---" >> docs/integration-guides/mcp-integration-complete.md
+        echo "" >> docs/integration-guides/mcp-integration-complete.md
+        cat temp-sync/mcp-integration.md >> docs/integration-guides/mcp-integration-complete.md
+        
+        echo "✅ Processing use cases..."
+        # Add Docusaurus front matter to use cases
+        echo "---" > docs/examples/use-cases-complete.md
+        echo "sidebar_position: 2" >> docs/examples/use-cases-complete.md
+        echo "title: 'Complete Use Cases Guide'" >> docs/examples/use-cases-complete.md
+        echo "---" >> docs/examples/use-cases-complete.md
+        echo "" >> docs/examples/use-cases-complete.md
+        cat temp-sync/use-cases.md >> docs/examples/use-cases-complete.md
+        
+        # Verify all synced files were created successfully
+        if [ ! -f docs/specification/full-specification.md ]; then
+          echo "❌ Failed to create full-specification.md"
+          exit 1
+        fi
+        
+        if [ ! -f docs/integration-guides/mcp-integration-complete.md ]; then
+          echo "❌ Failed to create mcp-integration-complete.md"
+          exit 1
+        fi
+        
+        if [ ! -f docs/examples/use-cases-complete.md ]; then
+          echo "❌ Failed to create use-cases-complete.md"
+          exit 1
         fi
         
         # Cleanup
         rm -rf temp-sync
-        echo "✅ Content sync completed"
+        echo "✅ Content sync completed - all files synced successfully"
     
     - name: Build website
       run: |
