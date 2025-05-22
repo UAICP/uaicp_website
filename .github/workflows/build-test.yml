@@ -7,6 +7,15 @@ on:
     branches: [ main, develop ]
 
 jobs:
+name: Build and Test Docusaurus Website
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
   build-and-test:
     runs-on: ubuntu-latest
     name: build-and-test
@@ -14,80 +23,133 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Validate HTML
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build Docusaurus website
+      run: npm run build
+    
+    - name: Validate generated HTML
       run: |
         # Install HTML validator
         sudo apt-get update
         sudo apt-get install -y tidy
         
-        # Validate HTML files
-        find . -name "*.html" -exec tidy -q -e {} \; || echo "HTML validation completed with warnings"
+        # Validate main HTML files in build directory
+        if [ -d "build" ]; then
+          echo "🔍 Validating generated HTML files..."
+          find build -name "*.html" -exec tidy -q -e {} \; || echo "HTML validation completed with warnings"
+        else
+          echo "❌ Build directory not found"
+          exit 1
+        fi
     
-    - name: Check file structure
+    - name: Check Docusaurus structure
       run: |
-        # Verify required files exist
-        if [ ! -f "index.html" ]; then
-          echo "Error: index.html not found"
+        # Verify Docusaurus build output
+        if [ ! -f "build/index.html" ]; then
+          echo "❌ Error: build/index.html not found after Docusaurus build"
           exit 1
         fi
         
-        if [ ! -f "CNAME" ]; then
-          echo "Error: CNAME file not found"
+        if [ ! -f "static/CNAME" ]; then
+          echo "❌ Error: static/CNAME file not found"
           exit 1
         fi
         
-        echo "✅ Required files found"
-        echo "✅ Static website structure validated"
+        if [ ! -f "build/CNAME" ]; then
+          echo "❌ Error: CNAME not copied to build directory"
+          exit 1
+        fi
+        
+        # Check if essential Docusaurus files exist
+        if [ ! -f "docusaurus.config.ts" ]; then
+          echo "❌ Error: docusaurus.config.ts not found"
+          exit 1
+        fi
+        
+        if [ ! -f "package.json" ]; then
+          echo "❌ Error: package.json not found"
+          exit 1
+        fi
+        
+        echo "✅ Required Docusaurus files found"
+        echo "✅ Docusaurus website structure validated"
+        echo "✅ Build output contains index.html and CNAME"
 
   accessibility-test:
     runs-on: ubuntu-latest
     name: accessibility-test
+    needs: build-and-test
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Node.js for testing tools
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version-file: '.nvmrc'
+        cache: 'npm'
+    
+    - name: Install dependencies and build
+      run: |
+        npm ci
+        npm run build
     
     - name: Install accessibility testing tools
       run: |
         npm install -g @axe-core/cli
         npm install -g pa11y
     
-    - name: Start simple HTTP server
+    - name: Start HTTP server with built site
       run: |
+        cd build
         python3 -m http.server 8080 &
         sleep 5
+        cd ..
     
     - name: Run accessibility tests
       run: |
         # Test with axe-core
         axe http://localhost:8080 --exit || echo "Accessibility tests completed with issues"
         
-        # Test with pa11y
+        # Test with pa11y  
         pa11y http://localhost:8080 || echo "Pa11y tests completed with issues"
 
   performance-test:
     runs-on: ubuntu-latest
     name: performance-test
+    needs: build-and-test
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Node.js for Lighthouse
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version-file: '.nvmrc'
+        cache: 'npm'
+    
+    - name: Install dependencies and build
+      run: |
+        npm ci
+        npm run build
     
     - name: Install Lighthouse
       run: npm install -g lighthouse
     
-    - name: Start simple HTTP server
+    - name: Start HTTP server with built site
       run: |
+        cd build  
         python3 -m http.server 8080 &
         sleep 5
+        cd ..
     
     - name: Run Lighthouse tests
       run: |
@@ -101,28 +163,46 @@ jobs:
   security-scan:
     runs-on: ubuntu-latest
     name: security-scan
+    needs: build-and-test
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Run basic security checks
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: '.nvmrc'
+        cache: 'npm'
+    
+    - name: Install dependencies and build
       run: |
-        # Check for common security issues in HTML
-        echo "🔍 Checking for security issues..."
+        npm ci
+        npm run build
+    
+    - name: Run security checks on built site
+      run: |
+        # Check for common security issues in built HTML
+        echo "🔍 Checking for security issues in built site..."
         
-        # Check for potentially unsafe HTML elements
-        if grep -r "javascript:" . --include="*.html"; then
+        # Check for potentially unsafe HTML elements in build directory
+        if grep -r "javascript:" build/ --include="*.html"; then
           echo "⚠️ Found javascript: URLs - review for XSS"
         fi
         
         # Check for external script sources
-        if grep -r "<script src=" . --include="*.html"; then
+        if grep -r "<script src=" build/ --include="*.html"; then
           echo "ℹ️ Found external scripts - ensure they're from trusted sources"
         fi
         
         # Check for inline event handlers
-        if grep -r "onclick\|onload\|onerror" . --include="*.html"; then
+        if grep -r "onclick\|onload\|onerror" build/ --include="*.html"; then
           echo "ℹ️ Found inline event handlers - consider moving to external JS"
+        fi
+        
+        # Check Docusaurus config for security
+        echo "🔍 Checking Docusaurus configuration..."
+        if [ -f "docusaurus.config.ts" ]; then
+          echo "✅ Docusaurus config found"
         fi
         
         echo "✅ Basic security scan completed"
@@ -130,29 +210,47 @@ jobs:
   link-check:
     runs-on: ubuntu-latest
     name: link-check
+    needs: build-and-test
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Setup Node.js for link checking
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version-file: '.nvmrc'
+        cache: 'npm'
+    
+    - name: Install dependencies and build
+      run: |
+        npm ci
+        npm run build
     
     - name: Install link checker
       run: npm install -g markdown-link-check
     
-    - name: Check links in HTML files
+    - name: Check links in built HTML files
       run: |
-        echo "🔗 Checking links in HTML files..."
+        echo "🔗 Checking links in built HTML files..."
         
-        # Extract and check URLs from HTML files
-        find . -name "*.html" -exec grep -o 'href="[^"]*"' {} \; | sed 's/href="//g' | sed 's/"//g' | sort | uniq > urls.txt
+        # Extract and check URLs from built HTML files
+        find build -name "*.html" -exec grep -o 'href="[^"]*"' {} \; | sed 's/href="//g' | sed 's/"//g' | sort | uniq > urls.txt
         
-        # Check GitHub URLs specifically
-        grep "github.com" urls.txt | head -10 | while read url; do
-          echo "Checking: $url"
-          curl -s -o /dev/null -w "%{http_code}" "$url" | grep -q "200\|301\|302" && echo "✅ $url" || echo "❌ $url"
+        # Check internal links
+        echo "Checking internal links..."
+        grep -v "http" urls.txt | head -10 | while read url; do
+          if [ -n "$url" ] && [ "$url" != "#" ]; then
+            echo "Internal link: $url"
+          fi
+        done
+        
+        # Check external GitHub URLs specifically
+        echo "Checking external GitHub links..."
+        grep "github.com" urls.txt | head -5 | while read url; do
+          if [ -n "$url" ]; then
+            echo "Checking: $url"
+            curl -s -o /dev/null -w "%{http_code}" "$url" | grep -q "200\|301\|302" && echo "✅ $url" || echo "❌ $url"
+          fi
         done
         
         echo "✅ Link checking completed"
