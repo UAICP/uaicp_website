@@ -100,6 +100,92 @@
     </div>
 
     <div class="test-section">
+        <h2>🔧 Overlap Test (iPhone Max)</h2>
+        <p>Test for hamburger menu and header overlapping issues:</p>
+        <div style="background: #f0f0f0; padding: 15px; border-radius: 6px; margin: 10px 0;">
+            <h4>Simulated iPhone Max Navbar (375px width):</h4>
+            <div style="width: 375px; margin: 10px auto; border: 2px solid #ddd; background: white;">
+                <div style="
+                    background: rgba(255, 255, 255, 0.98);
+                    min-height: 60px;
+                    padding: 0;
+                    position: relative;
+                    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+                ">
+                    <div style="
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        min-height: 60px;
+                        padding: 0 1rem;
+                        position: relative;
+                    ">
+                        <div style="
+                            display: flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            flex: 1;
+                            min-width: 0;
+                            z-index: 1;
+                        ">
+                            <div style="
+                                font-weight: 700;
+                                font-size: 1.5rem;
+                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;
+                                background-clip: text;
+                                letter-spacing: -0.02em;
+                            ">UAICP</div>
+                        </div>
+                        <button style="
+                            position: relative;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 44px;
+                            height: 44px;
+                            padding: 8px;
+                            margin: 0;
+                            margin-left: auto;
+                            background: transparent;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            z-index: 10;
+                            color: #667eea;
+                        " onclick="alert('Hamburger menu clicked!')">
+                            <svg width="20" height="20" viewBox="0 0 24 24" style="fill: currentColor;">
+                                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div style="padding: 20px; background: white;">
+                    <p style="margin: 0; color: #666;">Sample content below navbar</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: #e8f5e8; padding: 10px; border-radius: 4px; margin: 10px 0;">
+            <strong>✅ Expected Results:</strong><br>
+            • Brand "UAICP" on the left<br>
+            • Hamburger button (☰) on the right<br>
+            • No overlapping elements<br>
+            • 44px touch target size<br>
+            • Clear spacing between elements
+        </div>
+        
+        <div style="background: #fff3cd; padding: 10px; border-radius: 4px; margin: 10px 0;">
+            <strong>⚠️ If you still see overlap:</strong><br>
+            • Hard refresh the page (Cmd+Shift+R)<br>
+            • Clear browser cache<br>
+            • Try in private/incognito mode<br>
+            • Check if any browser extensions are interfering
+        </div>
+    </div>
+
+    <div class="test-section">
         <h2>🍔 Hamburger Button Test</h2>
         <p>Test different button styles that mimic the hamburger menu:</p>
         <button onclick="buttonTest(1)">Standard Button Test</button>
