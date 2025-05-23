@@ -16,10 +16,6 @@ function HomepageHeader() {
         <div className={styles.statusBadge}>✨ In Development</div>
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <p className={styles.heroDescription}>
-          An open specification for universal AI system communication and interoperability. 
-          Enabling seamless interaction between different AI systems, platforms, and services.
-        </p>
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
