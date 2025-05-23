@@ -60,7 +60,7 @@ const config: Config = {
       title: 'UAICP',
       logo: {
         alt: 'UAICP Logo',
-        src: 'img/logo-no-background.svg',
+        src: 'img/logo-cropped.svg',
         width: 32,
         height: 32,
       },
