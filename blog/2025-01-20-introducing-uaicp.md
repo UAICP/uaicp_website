@@ -3,7 +3,51 @@ slug: introducing-uaicp
 title: Introducing UAICP - Universal AI Communication Protocol
 authors: [uaicp_team]
 tags: [uaicp, ai, interoperability, protocol, announcement]
+description: Discover how UAICP solves AI ecosystem fragmentation by enabling seamless communication between different AI systems, protocols, and platforms. Learn about our open specification for universal AI interoperability.
+image: /img/uaicp-social-card.svg
+keywords: [UAICP, AI interoperability, AI protocol, artificial intelligence, AI integration, protocol translation, AI communication]
 ---
+
+import Head from '@docusaurus/Head';
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Introducing UAICP - Universal AI Communication Protocol",
+      "description": "Discover how UAICP solves AI ecosystem fragmentation by enabling seamless communication between different AI systems, protocols, and platforms.",
+      "image": "https://uaicp.org/img/uaicp-social-card.svg",
+      "author": {
+        "@type": "Organization",
+        "name": "UAICP Team",
+        "url": "https://github.com/UAICP"
+      },
+      "publisher": {
+        "@type": "Organization", 
+        "name": "UAICP Project",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://uaicp.org/img/logo-cropped.svg"
+        }
+      },
+      "datePublished": "2025-01-20T00:00:00.000Z",
+      "dateModified": "2025-01-20T00:00:00.000Z",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://uaicp.org/blog/introducing-uaicp"
+      },
+      "keywords": ["UAICP", "AI interoperability", "AI protocol", "artificial intelligence", "AI integration", "protocol translation", "AI communication"],
+      "articleSection": "Technology",
+      "wordCount": 1500,
+      "about": {
+        "@type": "Thing",
+        "name": "AI Interoperability",
+        "description": "The ability for different artificial intelligence systems to communicate and work together seamlessly"
+      }
+    })}
+  </script>
+</Head>
 
 # Introducing UAICP: Breaking Down AI Silos
 
