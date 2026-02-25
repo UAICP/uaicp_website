@@ -11,7 +11,7 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <div className={styles.statusBadge}>v0.1 Draft</div>
+        <div className={styles.statusBadge}>Complete Reference Docs</div>
         <h1 className="hero__title">UAICP</h1>
         <p className={styles.heroName}>Universal Agent Integrity & Control Protocol</p>
         <p className={styles.heroDescription}>
@@ -25,7 +25,10 @@ function HomepageHeader() {
             Integration Guides
           </Link>
           <Link className="button button--secondary button--lg" href="https://github.com/UAICP/uaicp_specification">
-            GitHub
+            Specification Repo
+          </Link>
+          <Link className="button button--secondary button--lg" href="https://github.com/UAICP/uaicp-reference-impl">
+            Reference Impl Repo
           </Link>
         </div>
       </div>
@@ -66,7 +69,7 @@ export default function Home(): JSX.Element {
                 <div className="col col--8 col--offset-2">
                   <h2 className={styles.sectionTitle}>Get Started</h2>
                   <p className={styles.sectionDescription}>
-                    Start with the specification, review current roadmap status, then implement adapters and validate with conformance checks.
+                    Start with the protocol and adapter docs, then run the finance workflow comparison in the reference implementation.
                   </p>
                   <div className={styles.getStartedButtons}>
                     <Link className="button button--primary button--lg" to="/docs/specification">
@@ -74,6 +77,9 @@ export default function Home(): JSX.Element {
                     </Link>
                     <Link className="button button--secondary button--lg" to="/docs/examples/use-cases">
                       Use Cases
+                    </Link>
+                    <Link className="button button--secondary button--lg" to="/docs/examples/finance-workflow-comparison">
+                      Finance Workflow
                     </Link>
                     <Link className="button button--secondary button--lg" to="/docs/governance/status-roadmap">
                       Status and Roadmap

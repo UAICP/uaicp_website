@@ -35,7 +35,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Examples',
-      items: ['examples/use-cases'],
+      items: ['examples/use-cases', 'examples/finance-workflow-comparison'],
     },
   ],
 

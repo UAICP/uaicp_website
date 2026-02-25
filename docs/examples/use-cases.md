@@ -1,19 +1,28 @@
-# UAICP Use Cases
+# Use Cases
 
-## Reliable Code Change Workflow
+UAICP is designed for workflows where incorrect delivery or uncontrolled writes are high impact.
 
-- execute edits
-- run test/type verifiers
-- deliver only with evidence artifacts
+## Primary Use Cases
 
-## Reliable Research Workflow
+- regulated finance operations with high-risk write actions
+- compliance-sensitive data operations requiring replayable audit traces
+- enterprise agent workflows that must fail safe under uncertainty
 
-- gather sources
-- verify claim coverage
-- label unresolved claims as uncertain
+## Complete Walkthrough: Finance Workflow Comparison
 
-## Reliable High-Risk Operation Workflow
+Use this full comparison for practical onboarding:
 
-- classify write as high-risk
-- require approval and rollback metadata
-- block action if approval is missing
+- [Finance Workflow Comparison](./finance-workflow-comparison.md)
+
+It shows the same workflow implemented as:
+
+1. manual workflow
+2. framework-level agentic workflow
+3. agent implementation without UAICP gates
+4. agent implementation with UAICP gates
+
+## Source Code Link
+
+Reference implementation source:
+
+- `https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts`

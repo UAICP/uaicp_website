@@ -1,23 +1,60 @@
 # Integration Overview
 
-UAICP is designed to sit beneath existing orchestrators.
+UAICP integrates as a reliability control layer under your existing orchestration runtime.
 
-## Why This Matters
+This website provides complete integration guidance. Ongoing enhancements are tracked in GitHub roadmap issues, not hidden in partial docs.
 
-Your framework can stay unchanged for planning and tool orchestration.
-UAICP adds a portable reliability contract so enterprise controls are not tied to one vendor stack.
+## Integration Target
 
-## Integration Pattern
+You keep your existing framework for orchestration and tool execution.
 
-1. map framework context into UAICP envelope
-2. normalize tool outputs as evidence objects
-3. run verifier checks before delivery
-4. enforce policy gates for writes
+UAICP adds deterministic gates for:
 
-## Benefits
+1. identity validation
+2. evidence gating
+3. verification gating
+4. policy-gated write actions
+5. replayable audit context
 
-- keeps your existing framework
-- adds deterministic reliability controls
-- improves auditability and replay capability
+## Canonical Integration Flow
 
-Use adapter templates in this section to integrate with your runtime.
+```text
+framework request/context
+  -> map to UAICP envelope
+  -> execute tools and collect evidence objects
+  -> run verifier checks
+  -> run policy gate (especially for write actions)
+  -> deliver OR fail_safe
+```
+
+## Reference Implementation Link
+
+Use the concrete finance comparison implementation:
+
+- source: `https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts`
+- runner: `https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/run-comparison.ts`
+
+Run locally:
+
+```bash
+cd uaicp-reference-impl
+npm install
+npm run example:finance
+```
+
+## Definition of Complete Adapter Integration
+
+An adapter is complete when it can:
+
+- map framework state to UAICP envelope fields
+- persist required evidence objects before delivery
+- block delivery on failed verification or missing evidence
+- enforce policy gate semantics on high-risk writes
+- emit reason-coded outcomes (`allow`, `deny`, `needs_review`)
+
+## Roadmap Tracking
+
+Roadmap and open enhancements are tracked in:
+
+- specification roadmap tracker: `https://github.com/UAICP/uaicp_specification/issues/16`
+- reference implementation issues: `https://github.com/UAICP/uaicp-reference-impl/issues`

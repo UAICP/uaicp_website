@@ -1,43 +1,31 @@
 # Status and Roadmap
 
-## Current Status
+## Current Protocol Status
 
 - protocol version: `v0.1-draft`
-- current focus: baseline conformance and adapter adoption
+- documentation status: complete reference guidance is published on this site
 
-## Built
+## Complete Now
 
-- core specification draft with state/invariant model
-- baseline schemas for envelope, evidence, and verification reports
-- baseline compliance test categories
-- initial reference implementation primitives
+- core specification and invariant model
+- baseline schema contracts (envelope, evidence, verification)
+- adapter contract and framework integration guidance
+- finance workflow comparison reference in `uaicp-reference-impl`
 
-## In Progress
+## Tracked as In Progress / Planned
 
-- normative hardening for `v0.1`
-- conformance harness definition
+Future enhancements are tracked in GitHub issues and roadmap docs.
 
-## Next
+Primary trackers:
 
-- external conformance report examples
-- reliability maturity level proposal (`L1/L2/L3`)
-- expanded adapter fixtures and migration guidance
+- specification roadmap tracker: `https://github.com/UAICP/uaicp_specification/issues/16`
+- specification roadmap document: `https://github.com/UAICP/uaicp_specification/blob/main/PROJECT-ROADMAP.md`
+- reference implementation issues: `https://github.com/UAICP/uaicp-reference-impl/issues`
 
-## Execution Model
+## Roadmap Policy
 
-Roadmap delivery is tracked as GitHub issues in `UAICP/uaicp_specification`.
+Roadmap is maintained as status-based issue tracking.
 
-Use labels:
-
-- `roadmap`
-- `workstream/spec`
-- `workstream/schema`
-- `workstream/conformance`
-- `workstream/adapters`
-- `workstream/docs`
-
-See the source roadmap in the specification repository:
-
-- `PROJECT-ROADMAP.md`
-- `docs/specification/implementation-plan.md`
-- roadmap tracker issue: `https://github.com/UAICP/uaicp_specification/issues/16`
+- no timeline commitments
+- no hidden work outside issue/roadmap artifacts
+- completion state is visible in repo-level roadmap/issues
