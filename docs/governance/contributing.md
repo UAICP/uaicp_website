@@ -24,3 +24,7 @@ Use `good first issue` for onboarding tasks and `roadmap` for milestone-critical
 - avoid unverifiable normative claims
 - preserve backward compatibility where possible
 - include migration notes for breaking changes
+
+## Local Private Notes
+
+Use `.private/` in each UAICP repository for local-only notes and drafts that should not be committed publicly.
