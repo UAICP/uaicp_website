@@ -1,5 +1,7 @@
 # UAICP Core Specification (v0.1 Draft)
 
+UAICP is a decoupled reliability layer that can be embedded under existing orchestration frameworks.
+
 ## Execution Model
 
 UAICP requires this state flow:
@@ -44,6 +46,17 @@ UAICP standardizes:
 - verification report contract
 
 Implementations can extend fields but cannot omit required base fields.
+
+## Relationship to Frameworks
+
+Frameworks such as LangGraph, Microsoft Agent Framework style runtimes, AutoGen, CrewAI, and OpenAI Agents SDK own orchestration behavior.
+
+UAICP owns:
+
+- reliability invariants
+- evidence and verification contracts
+- policy gate semantics
+- conformance expectations
 
 ## Fail-Safe Rule
 

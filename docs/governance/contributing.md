@@ -7,6 +7,18 @@
 3. update docs/schemas/tests together
 4. submit PR with validation notes
 
+## Workstreams
+
+Choose issues by workstream labels:
+
+- `workstream/spec`
+- `workstream/schema`
+- `workstream/conformance`
+- `workstream/adapters`
+- `workstream/docs`
+
+Use `good first issue` for onboarding tasks and `roadmap` for milestone-critical items.
+
 ## Contribution Standards
 
 - avoid unverifiable normative claims

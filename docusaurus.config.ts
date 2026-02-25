@@ -56,6 +56,7 @@ const config: Config = {
         {to: '/docs/specification/introduction', label: 'Specification', position: 'left'},
         {to: '/docs/integration-guides/overview', label: 'Integration', position: 'left'},
         {to: '/docs/examples/use-cases', label: 'Examples', position: 'left'},
+        {to: '/docs/governance/status-roadmap', label: 'Status', position: 'left'},
         {to: '/docs/governance/overview', label: 'Governance', position: 'left'},
         {to: '/blog', label: 'Blog', position: 'left'},
         {href: 'https://github.com/UAICP/uaicp_specification', label: 'GitHub', position: 'right'},
@@ -76,6 +77,7 @@ const config: Config = {
           title: 'Project',
           items: [
             {label: 'Governance', to: '/docs/governance/overview'},
+            {label: 'Status and Roadmap', to: '/docs/governance/status-roadmap'},
             {label: 'Contributing', to: '/docs/governance/contributing'},
             {label: 'Blog', to: '/blog'},
           ],

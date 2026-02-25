@@ -7,15 +7,22 @@ Start with the core specification:
 - `specification/introduction`
 - `specification/specification`
 
-## 2. Implement Envelope + Evidence
+## 2. Understand Project Status
 
-Adopt the UAICP schemas in your orchestrator runtime:
+Before implementing, review current scope and roadmap:
+
+- `governance/status-roadmap`
+- `governance/contributing`
+
+## 3. Implement Envelope + Evidence
+
+Adopt UAICP schemas in your orchestrator runtime:
 
 - message envelope
 - evidence object
 - verification report
 
-## 3. Wire Invariants
+## 4. Wire Invariants
 
 Before final output, enforce:
 
@@ -23,7 +30,7 @@ Before final output, enforce:
 - required verification checks pass
 - write policy gates are satisfied
 
-## 4. Integrate an Adapter
+## 5. Integrate an Adapter
 
 Use an adapter pattern for your framework:
 
@@ -32,6 +39,6 @@ Use an adapter pattern for your framework:
 - CrewAI
 - OpenAI Agents SDK
 
-## 5. Run Conformance
+## 6. Run Conformance
 
 Evaluate against baseline compliance checks and produce a report artifact.

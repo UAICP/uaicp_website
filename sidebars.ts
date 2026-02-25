@@ -43,7 +43,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Governance',
-      items: ['governance/overview', 'governance/contributing'],
+      items: ['governance/overview', 'governance/status-roadmap', 'governance/contributing'],
     },
   ],
 };

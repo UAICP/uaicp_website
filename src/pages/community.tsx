@@ -22,6 +22,13 @@ const CommunityPage = () => {
                 <li>Reference the invariant or contract impacted.</li>
                 <li>Submit a PR with docs/schema/test updates as needed.</li>
               </ol>
+              <p>
+                Start from the roadmap tracker issue and pick a workstream-labeled issue:
+                {' '}
+                <a href="https://github.com/UAICP/uaicp_specification/issues/16" target="_blank" rel="noopener noreferrer">
+                  UAICP v0.1 Roadmap Tracker
+                </a>.
+              </p>
               <div className="button-group">
                 <Link className="button button--primary" href="https://github.com/UAICP/uaicp_specification/issues">
                   Open Issue

@@ -37,6 +37,7 @@ export default function Sitemap(): JSX.Element {
               <ul>
                 <li><Link to="/docs/examples/use-cases">Use Cases</Link></li>
                 <li><Link to="/docs/governance/overview">Governance</Link></li>
+                <li><Link to="/docs/governance/status-roadmap">Status and Roadmap</Link></li>
                 <li><Link to="/docs/governance/contributing">Contributing</Link></li>
               </ul>
 
@@ -44,6 +45,7 @@ export default function Sitemap(): JSX.Element {
               <ul>
                 <li><Link to="/blog">Blog</Link></li>
                 <li><a href="https://github.com/UAICP/uaicp_specification" target="_blank" rel="noopener noreferrer">Specification Repository</a></li>
+                <li><a href="https://github.com/UAICP/uaicp-reference-impl" target="_blank" rel="noopener noreferrer">Reference Implementation Repository</a></li>
               </ul>
             </div>
           </div>

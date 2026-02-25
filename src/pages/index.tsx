@@ -15,7 +15,7 @@ function HomepageHeader() {
         <h1 className="hero__title">UAICP</h1>
         <p className={styles.heroName}>Universal Agent Integrity & Control Protocol</p>
         <p className={styles.heroDescription}>
-          Open reliability contract for agentic workflows.
+          Decoupled reliability contract for enterprise agent execution.
         </p>
         <div className={styles.buttons}>
           <Link className="button button--secondary button--lg" to="/docs/specification/introduction">
@@ -34,7 +34,7 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const description = 'UAICP is an open reliability contract for agentic workflows with evidence gating, verification, policy control, and auditability.';
+  const description = 'UAICP is an open reliability contract for enterprise agent workflows with evidence gating, deterministic verification, policy-gated writes, and auditability.';
 
   return (
     <>
@@ -52,8 +52,8 @@ export default function Home(): JSX.Element {
                 <div className="col col--8 col--offset-2">
                   <h2 className={styles.sectionTitle}>Reliability by Contract</h2>
                   <p className={styles.sectionDescription}>
-                    UAICP makes reliability enforceable. Orchestrators must satisfy evidence and verification
-                    invariants before delivery, and must fail safe when they cannot.
+                    UAICP is a separate control layer that sits under frameworks like LangGraph, Microsoft Agent Framework style runtimes, AutoGen, and CrewAI.
+                    It standardizes evidence contracts, verification contracts, and policy gates so delivery cannot bypass required checks.
                   </p>
                 </div>
               </div>
@@ -66,8 +66,7 @@ export default function Home(): JSX.Element {
                 <div className="col col--8 col--offset-2">
                   <h2 className={styles.sectionTitle}>Get Started</h2>
                   <p className={styles.sectionDescription}>
-                    Start with the specification, implement the adapter contract, and validate behavior with
-                    conformance checks.
+                    Start with the specification, review current roadmap status, then implement adapters and validate with conformance checks.
                   </p>
                   <div className={styles.getStartedButtons}>
                     <Link className="button button--primary button--lg" to="/docs/specification">
@@ -75,6 +74,9 @@ export default function Home(): JSX.Element {
                     </Link>
                     <Link className="button button--secondary button--lg" to="/docs/examples/use-cases">
                       Use Cases
+                    </Link>
+                    <Link className="button button--secondary button--lg" to="/docs/governance/status-roadmap">
+                      Status and Roadmap
                     </Link>
                     <Link className="button button--secondary button--lg" to="/blog">
                       Project Updates
