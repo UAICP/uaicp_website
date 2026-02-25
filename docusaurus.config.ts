@@ -90,7 +90,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} UAICP.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Prismworks AI and UAICP contributors.`,
     },
     prism: {
       theme: prismThemes.github,
