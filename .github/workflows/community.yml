@@ -14,7 +14,7 @@ jobs:
     if: github.event.action == 'opened'
     steps:
       - name: Welcome new contributors to UAICP Website
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             // Check if this is user's first contribution
@@ -74,7 +74,7 @@ jobs:
     if: github.event.action == 'closed' && github.event.pull_request.merged == true
     steps:
       - name: Process website updates
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -113,7 +113,7 @@ jobs:
     if: github.event.action == 'created'
     steps:
       - name: Acknowledge website discussions
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             console.log('💬 New discussion created in UAICP website repo');
