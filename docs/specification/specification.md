@@ -1,4 +1,4 @@
-# UAICP Core Specification (v0.1 Draft)
+# UAICP Core Specification (v0.2)
 
 UAICP is a decoupled reliability layer that can be embedded under existing orchestration frameworks.
 

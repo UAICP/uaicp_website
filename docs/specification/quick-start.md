@@ -4,15 +4,15 @@
 
 Start with the core specification:
 
-- `specification/introduction`
-- `specification/specification`
+- [Introduction](./introduction.md)
+- [Core Specification](./specification.md)
 
-## 2. Understand Project Status
+## 2. Choose an Integration Path
 
-Before implementing, review current scope and roadmap:
+Before implementing, review the integration model and adapter contract:
 
-- `governance/status-roadmap`
-- `governance/contributing`
+- [Integration Overview](../integration-guides/overview.md)
+- [Adapter Contract](../integration-guides/adapter-contract.md)
 
 ## 3. Implement Envelope + Evidence
 
@@ -41,4 +41,6 @@ Use an adapter pattern for your framework:
 
 ## 6. Run Conformance
 
-Evaluate against baseline compliance checks and produce a report artifact.
+Validate behavior against the reference fixture:
+
+- [Finance Workflow Comparison](../examples/finance-workflow-comparison.md)

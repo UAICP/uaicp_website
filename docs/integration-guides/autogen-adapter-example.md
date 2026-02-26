@@ -39,4 +39,4 @@ async function runAutogenTaskWithUaicp(task: TaskInput) {
 
 ## Reference Fixture
 
-- `https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts`
+- [workflow-comparison.ts](https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts)

@@ -14,7 +14,7 @@ Common input fields:
 
 Reference source:
 
-- `https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts`
+- [workflow-comparison.ts](https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts)
 
 ## 1. Manual Workflow
 

@@ -21,7 +21,7 @@ export default function Sitemap(): JSX.Element {
               <h3>Specification</h3>
               <ul>
                 <li><Link to="/docs/specification/introduction">Introduction</Link></li>
-                <li><Link to="/docs/specification/why-now">Why Now</Link></li>
+                <li><Link to="/docs/specification/why-now">Protocol Context</Link></li>
                 <li><Link to="/docs/specification/quick-start">Quick Start</Link></li>
                 <li><Link to="/docs/specification">Core Specification</Link></li>
               </ul>
@@ -37,7 +37,7 @@ export default function Sitemap(): JSX.Element {
               <ul>
                 <li><Link to="/docs/examples/use-cases">Use Cases</Link></li>
                 <li><Link to="/docs/governance/overview">Governance</Link></li>
-                <li><Link to="/docs/governance/status-roadmap">Status and Roadmap</Link></li>
+                <li><Link to="/docs/governance/status-roadmap">Release Status</Link></li>
                 <li><Link to="/docs/governance/contributing">Contributing</Link></li>
               </ul>
 

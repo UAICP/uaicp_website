@@ -1,31 +1,29 @@
-# Status and Roadmap
+# Release Status
 
-## Current Protocol Status
+## Current Release
 
-- protocol version: `v0.1-draft`
-- documentation status: complete reference guidance is published on this site
+- protocol version: `v0.2`
+- practitioner status: ready to implement
+- documentation status: complete implementation guidance is published on this site
 
-## Complete Now
+## Included in v0.2
 
 - core specification and invariant model
-- baseline schema contracts (envelope, evidence, verification)
-- adapter contract and framework integration guidance
-- finance workflow comparison reference in `uaicp-reference-impl`
+- schema contracts (envelope, evidence, verification report)
+- adapter contract and framework adapter guidance
+- runnable finance workflow comparison in `uaicp-reference-impl`
 
-## Tracked as In Progress / Planned
+## Implementation Path
 
-Future enhancements are tracked in GitHub issues and roadmap docs.
+For adoption, start with:
 
-Primary trackers:
+- [Core Specification](../specification/specification.md)
+- [Adapter Contract](../integration-guides/adapter-contract.md)
+- [Finance Workflow Comparison](../examples/finance-workflow-comparison.md)
 
-- specification roadmap tracker: `https://github.com/UAICP/uaicp_specification/issues/16`
-- specification roadmap document: `https://github.com/UAICP/uaicp_specification/blob/main/PROJECT-ROADMAP.md`
-- reference implementation issues: `https://github.com/UAICP/uaicp-reference-impl/issues`
+## Contributor Tracking
 
-## Roadmap Policy
+Enhancements after `v0.2` are tracked in GitHub issues:
 
-Roadmap is maintained as status-based issue tracking.
-
-- no timeline commitments
-- no hidden work outside issue/roadmap artifacts
-- completion state is visible in repo-level roadmap/issues
+- [Specification Issues](https://github.com/UAICP/uaicp_specification/issues)
+- [Reference Implementation Issues](https://github.com/UAICP/uaicp-reference-impl/issues)

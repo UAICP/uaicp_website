@@ -2,7 +2,7 @@
 
 UAICP integrates as a reliability control layer under your existing orchestration runtime.
 
-This website provides complete integration guidance. Ongoing enhancements are tracked in GitHub roadmap issues, not hidden in partial docs.
+This website provides complete integration guidance for `v0.2` implementation.
 
 ## Integration Target
 
@@ -31,8 +31,8 @@ framework request/context
 
 Use the concrete finance comparison implementation:
 
-- source: `https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts`
-- runner: `https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/run-comparison.ts`
+- source: [workflow-comparison.ts](https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts)
+- runner: [run-comparison.ts](https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/run-comparison.ts)
 
 Run locally:
 
@@ -52,9 +52,9 @@ An adapter is complete when it can:
 - enforce policy gate semantics on high-risk writes
 - emit reason-coded outcomes (`allow`, `deny`, `needs_review`)
 
-## Roadmap Tracking
+## Contributor Links
 
-Roadmap and open enhancements are tracked in:
+Post-`v0.2` enhancements are tracked in:
 
-- specification roadmap tracker: `https://github.com/UAICP/uaicp_specification/issues/16`
-- reference implementation issues: `https://github.com/UAICP/uaicp-reference-impl/issues`
+- [Specification Issues](https://github.com/UAICP/uaicp_specification/issues)
+- [Reference Implementation Issues](https://github.com/UAICP/uaicp-reference-impl/issues)

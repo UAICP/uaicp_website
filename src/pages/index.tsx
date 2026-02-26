@@ -11,7 +11,7 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <div className={styles.statusBadge}>Complete Reference Docs</div>
+        <div className={styles.statusBadge}>Protocol v0.2</div>
         <h1 className="hero__title">UAICP</h1>
         <p className={styles.heroName}>Universal Agent Integrity & Control Protocol</p>
         <p className={styles.heroDescription}>
@@ -44,7 +44,7 @@ export default function Home(): JSX.Element {
       <Head>
         <meta name="description" content={description} />
       </Head>
-      <Layout title="Reliable Agentic Workflows" description={description}>
+      <Layout title="UAICP Protocol v0.2" description={description}>
         <HomepageHeader />
         <main>
           <HomepageFeatures />
@@ -81,8 +81,8 @@ export default function Home(): JSX.Element {
                     <Link className="button button--secondary button--lg" to="/docs/examples/finance-workflow-comparison">
                       Finance Workflow
                     </Link>
-                    <Link className="button button--secondary button--lg" to="/docs/governance/status-roadmap">
-                      Status and Roadmap
+                    <Link className="button button--secondary button--lg" to="/docs/integration-guides/adapter-contract">
+                      Adapter Contract
                     </Link>
                     <Link className="button button--secondary button--lg" to="/blog">
                       Project Updates

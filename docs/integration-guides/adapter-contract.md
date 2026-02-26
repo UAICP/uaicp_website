@@ -58,4 +58,4 @@ For high-risk write actions, if approval metadata is missing:
 
 Reference implementation finance scenario:
 
-- `https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts`
+- [workflow-comparison.ts](https://github.com/UAICP/uaicp-reference-impl/blob/main/src/examples/finance/workflow-comparison.ts)

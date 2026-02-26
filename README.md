@@ -14,20 +14,20 @@ This site is the complete reference for:
 - concrete finance workflow comparison walkthrough
 - governance and contribution entry points
 
-Canonical protocol and roadmap source:
+Canonical protocol source:
 
-- `https://github.com/UAICP/uaicp_specification`
+- [uaicp_specification](https://github.com/UAICP/uaicp_specification)
 
 Reference implementation source:
 
-- `https://github.com/UAICP/uaicp-reference-impl`
+- [uaicp-reference-impl](https://github.com/UAICP/uaicp-reference-impl)
 
-## Roadmap Tracking
+## Contributor Tracking
 
-Roadmap updates are tracked in GitHub roadmap/issues (status-based, no timeline commitments):
+Post-`v0.2` enhancements are tracked in GitHub issues:
 
-- `https://github.com/UAICP/uaicp_specification/issues/16`
-- `https://github.com/UAICP/uaicp-reference-impl/issues`
+- [Specification Issues](https://github.com/UAICP/uaicp_specification/issues)
+- [Reference Implementation Issues](https://github.com/UAICP/uaicp-reference-impl/issues)
 
 ## Local Development
 
