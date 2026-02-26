@@ -24,7 +24,7 @@ UAICP is framework-neutral and model-neutral.
 - a model provider
 - a promise of autonomous correctness without verification
 
-## Why Enterprises Care
+## Operational Risk Coverage
 
 UAICP addresses production risks that become acute in regulated and high-impact workflows:
 

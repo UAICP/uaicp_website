@@ -15,7 +15,7 @@ function HomepageHeader() {
         <h1 className="hero__title">UAICP</h1>
         <p className={styles.heroName}>Universal Agent Integrity & Control Protocol</p>
         <p className={styles.heroDescription}>
-          Decoupled reliability contract for enterprise agent execution.
+          Decoupled reliability contract for controlled agent execution.
         </p>
         <div className={styles.buttons}>
           <Link className="button button--secondary button--lg" to="/docs/specification/introduction">
@@ -37,7 +37,7 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const description = 'UAICP is an open reliability contract for enterprise agent workflows with evidence gating, deterministic verification, policy-gated writes, and auditability.';
+  const description = 'UAICP is an open reliability contract for agent workflows with evidence gating, deterministic verification, policy-gated writes, and auditability.';
 
   return (
     <>

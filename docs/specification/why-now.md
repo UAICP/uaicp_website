@@ -1,4 +1,4 @@
-# Why Now
+# Protocol Context
 
 Agentic workflows are increasingly executing real tasks with side effects.
 
@@ -19,9 +19,9 @@ UAICP standardizes the reliability controls needed to make these workflows produ
 
 UAICP operationalizes these principles through contracts and invariants.
 
-## Market Pull
+## Operational Context
 
-UAICP is aimed at enterprise and regulated execution contexts where non-silent failure and auditability are mandatory. It is not optimized for demo-first autonomous agent showcases.
+UAICP is designed for production and regulated execution contexts where non-silent failure and auditability are mandatory. It is intended for deterministic, controlled workflows rather than exploratory autonomous demos.
 
 ## Why a Separate Layer
 
