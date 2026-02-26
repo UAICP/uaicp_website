@@ -1,5 +1,13 @@
 # UAICP Website
 
+## Archived Repository
+
+This repository is archived and read-only.
+
+The canonical source has moved to the UAICP monorepo:
+- [UAICP/uaicp](https://github.com/UAICP/uaicp)
+- [website/](https://github.com/UAICP/uaicp/tree/main/website)
+
 Public documentation site for UAICP.
 
 UAICP is the open-source reliability contract for agentic workflows.
@@ -16,18 +24,17 @@ This site is the complete reference for:
 
 Canonical protocol source:
 
-- [uaicp_specification](https://github.com/UAICP/uaicp_specification)
+- [specification/](https://github.com/UAICP/uaicp/tree/main/specification)
 
 Reference implementation source:
 
-- [uaicp-reference-impl](https://github.com/UAICP/uaicp-reference-impl)
+- [reference-impl/](https://github.com/UAICP/uaicp/tree/main/reference-impl)
 
 ## Contributor Tracking
 
 Post-`v0.2` enhancements are tracked in GitHub issues:
 
-- [Specification Issues](https://github.com/UAICP/uaicp_specification/issues)
-- [Reference Implementation Issues](https://github.com/UAICP/uaicp-reference-impl/issues)
+- [Monorepo Issues](https://github.com/UAICP/uaicp/issues)
 
 ## Local Development
 
